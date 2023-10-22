@@ -15,3 +15,4 @@ namespace MyApp // Note: actual namespace depends on the project name.
     }
 }
 ```
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators

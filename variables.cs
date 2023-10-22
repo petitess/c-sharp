@@ -10,10 +10,9 @@ namespace Variables // Note: actual namespace depends on the project name.
             Console.WriteLine("Type your first name: ");
             string myFirstName;
             myFirstName = Console.ReadLine();
-
-            string myLastName;
+            
             Console.Write("Type your last name: ");
-            myLastName = Console.ReadLine();
+            string myLastName = Console.ReadLine();
 
             Console.WriteLine("Hi, " + myFirstName + " " + myLastName);
         }

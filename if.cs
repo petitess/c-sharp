@@ -28,3 +28,23 @@ namespace Variables
         }
     }
 }
+////
+////
+using System;
+
+namespace Variables
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Bob´s big giveaway");
+            Console.WriteLine("Choose a door: 1, 2 or 3: ");
+            string userValue = Console.ReadLine();
+
+            string message = (userValue == "1") ? "boat" : "strand of lint";
+            Console.WriteLine("You entered: {0}, You won a {1}", userValue, message);
+            Console.Write("You won a " + message);
+        }
+    }
+}

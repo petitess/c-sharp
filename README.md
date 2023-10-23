@@ -15,12 +15,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
     }
 }
 ```
+```
 git merge
 git rebase
 git reset
 git revert
 git fetch
-```
 ```
 | Operators | Category or name |
 | --------- | ---------------- |

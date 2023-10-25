@@ -13,9 +13,10 @@ namespace SimpleMethod
         }
         private static bool MainMenu()
         {
+            Console.Clear();
             Console.WriteLine("Choose an option:");
-            Console.WriteLine("1) Option 1");
-            Console.WriteLine("2) Option 2");
+            Console.WriteLine("1) Print numbers");
+            Console.WriteLine("2) Guessing game");
             Console.WriteLine("3) Exit");
             string results = Console.ReadLine();
             if(results == "1")
@@ -39,6 +40,7 @@ namespace SimpleMethod
         }
         private static void PrintNumbers()
         {
+            Console.Clear();
             Console.WriteLine("Print numbers!");
             Console.Write("Type a number: ");
             int result = int.Parse(Console.ReadLine());
@@ -49,10 +51,29 @@ namespace SimpleMethod
                 Console.Write("-");
                 counter++;
             }
+            Console.ReadLine();
         }
         private static void GuessingGame() 
         {
+            Console.Clear();
             Console.WriteLine("Guessing game!");
+            Random myRandom = new Random();
+            int randomNumber = myRandom.Next(1, 11);
+            int guesses = 0;
+            bool incorrect = true;
+            do
+            {
+                Console.WriteLine("Guess a number between 1 and 10");
+                string result = Console.ReadLine();
+                guesses++;
+                if(result == randomNumber.ToString())
+                    incorrect = false;
+
+            } while (incorrect);
+            Console.WriteLine("Correct! It took {0} guesses", guesses);
+
+
+            Console.ReadLine();
         }
     }
 }

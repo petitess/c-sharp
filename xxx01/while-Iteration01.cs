@@ -9,6 +9,7 @@ namespace SimpleMethod
             {
                 displayMenu = MainMenu();
             }
+            
         }
         private static bool MainMenu()
         {
@@ -36,12 +37,19 @@ namespace SimpleMethod
                 return true;
             }
         }
-
         private static void PrintNumbers()
         {
             Console.WriteLine("Print numbers!");
+            Console.Write("Type a number: ");
+            int result = int.Parse(Console.ReadLine());
+            int counter = 1;
+            while (counter < result + 1)
+            {
+                Console.Write(counter);
+                Console.Write("-");
+                counter++;
+            }
         }
-
         private static void GuessingGame() 
         {
             Console.WriteLine("Guessing game!");

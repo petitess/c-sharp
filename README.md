@@ -46,3 +46,12 @@ git fetch
 
 https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators
 https://learn.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-7.2
+# Visual Stuido Shortcuts
+```
+Shift + Home
+Shift + End
+Alt + Up Arrow
+Alt + Down Arrow
+
+
+```

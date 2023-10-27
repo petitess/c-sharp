@@ -7,3 +7,17 @@ public method is a accessibility modifier. They are called by somebody outside o
 private helper methods add some functionality to public methods
 public properties
 ```
+### NAMESPACES
+```
+using System;
+
+```
+
+
+```cs
+System.IO.File.WriteAllText(docPath + "\\myTest.txt", text);
+NAMESPACE:System.IO
+Class: File
+Method:WriteAllText()
+
+```

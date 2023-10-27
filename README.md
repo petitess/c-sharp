@@ -52,6 +52,6 @@ Shift + Home
 Shift + End
 Alt + Up Arrow
 Alt + Down Arrow
-
+Ctrl + .
 
 ```

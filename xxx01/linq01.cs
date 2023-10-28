@@ -20,9 +20,17 @@ namespace SimpleMethod
                       where car.Make == "BMW"
                       && car.Year > 2015
                       select car;
+
+            var orderedCars = from car in array
+                              orderby car.Year descending
+                              select car;
+
             //LINQ method syntax
             var bmw2 = array.Where(p => p.Make == "BMW" && p.Year > 2015);
 
+            var orderedCars2 = array.OrderByDescending(p => p.Year);
+
+            //Results
             foreach (var car in bmw)
             {
                 Console.WriteLine("{0} {1}", car.Make, car.VIN);
@@ -31,6 +39,16 @@ namespace SimpleMethod
             foreach (var car in bmw2)
             {
                 Console.WriteLine("{0} {1}", car.Make, car.VIN);
+            }
+
+            foreach (var car in orderedCars)
+            {
+                Console.WriteLine("{0} {1} {2}", car.Make, car.VIN, car.Year);
+            }
+
+            foreach (var car in orderedCars2)
+            {
+                Console.WriteLine("{0} {1} {2}", car.Make, car.VIN, car.Year);
             }
 
             Console.ReadLine();

@@ -54,6 +54,17 @@ namespace SimpleMethod
             }
 
             Console.WriteLine("The first car is: {0} {1} {2}", firstCar.Make, firstCar.VIN, firstCar.Year);
+            Console.WriteLine("All cars are from 2023: " + array.TrueForAll(p => p.Year == 2023));
+
+            array.ForEach(p => p.StrickerPrise -= 3000);
+            array.ForEach(p => Console.WriteLine("{0} {1:C}", p.Make, p.StrickerPrise));
+
+            Console.WriteLine("M3 model available: " + array.Exists(p => p.Model == "M3"));
+
+            Console.WriteLine("The value of all the cars is: " + array.Sum(p => p.StrickerPrise));
+
+            Console.WriteLine("Data type is: " + array.GetType());
+            Console.WriteLine("Data type is: " + orderedCars2.GetType());
 
             Console.ReadLine();
         }

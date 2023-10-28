@@ -30,7 +30,7 @@ namespace SimpleMethod
 
             var orderedCars2 = array.OrderByDescending(p => p.Year);
 
-            var firstCar = array.First(p => p.Make == "BMW");
+            var firstCar = array.OrderByDescending(p => p.Year).First(p => p.Make == "BMW");
 
             //Results
             foreach (var car in bmw)

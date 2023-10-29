@@ -144,8 +144,46 @@ Console.WriteLine(50 > intx && inty > 5);
 
 ```
 ### Conditional Statements
+```cs
+//Int
+int intx = 5;
+int inty = 10;
+if (intx > inty)
+{
+    intx += 10;
+}
+Console.WriteLine(intx);
+//String
+string cow = "cow";
+string bigCow = "Cow";
+if (cow == bigCow)
+{
+    Console.WriteLine("Equal");
+}
+else if (cow == bigCow.ToLower())
+{
+    Console.WriteLine("Equal without case sensitivity.");
+}
+else
+{
+    Console.WriteLine("Not Equal");
+}
+//Switch
+switch (cow)
+{
+    case "cow":
+    Console.WriteLine("Lowercase");
+        break;
+    case "Cow":
+    Console.WriteLine("Capitalized");
+        break;
+    default:
+        break;
+}
 ```
-zz
+### Loops
+```cd
+x
 ```
 ### dotnet
 ---

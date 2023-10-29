@@ -20,3 +20,33 @@ namespace SimpleMethod
         }
     }
 }
+/////////////
+namespace SimpleMethod
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> myNumberList = new List<int>(){
+                2, 3, 5, 6, 7, 9, 10, 123, 324, 54
+            };
+
+            foreach (int number in myNumberList)
+            {
+                PrintIfOdd(number);
+            }
+        }
+        static private int PrintIfOdd(int number)
+        {
+            if (number% 2 != 0)
+            {
+                Console.WriteLine(number);
+                return number;
+            }
+            else
+            {
+                return number;
+            }
+        }
+    }
+}

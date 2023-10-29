@@ -1,4 +1,6 @@
-Variable is stored data with a name and address
+### Variables
+---
+Variable is stored data with a name(alias) and address
 
 TYPES:
 - numeric, int
@@ -8,9 +10,6 @@ TYPES:
 OPERATORS:
 - mathematical
 - comparison
-
-
-Variables
 ```cs
 // 1 byte (8 bit) unsigned, where signed means it can be negative
 byte myByte = 255;
@@ -74,12 +73,15 @@ Console.WriteLine(myDecimal - mySecondDecimal);
 bool myBool = true;
 ```
 
-XXX
+### Data Structures
+---
+Array
 ```
 x
 ```
 
 dotnet
+---
 ```
 dotnet restore
 dotnet run

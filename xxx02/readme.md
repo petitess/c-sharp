@@ -105,7 +105,11 @@ Dictionary<string, string[]> dictionary2 = new Dictionary<string, string[]>(){
 };
 Console.WriteLine(dictionary2["Dairy"][0]);
 ```
+### Operators and Conditionals
+```
+ss
 
+```
 ### dotnet
 ---
 ```

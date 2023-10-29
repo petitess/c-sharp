@@ -239,6 +239,16 @@ foreach (int intToCompress in intsToCompress)
     }
 }
 Console.WriteLine(totalValue);
+
+//Print every even number
+List<int> myNumberList = new List<int>(){
+    2, 3, 5, 6, 7, 9, 10, 123, 324, 54
+};
+foreach (int number in myNumberList) {
+    if(number%2 == 0) {
+        Console.WriteLine(number);
+    }
+}
 ```
 ### dotnet
 ---

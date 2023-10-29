@@ -116,3 +116,5 @@ dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 ```
 
 https://learn.microsoft.com/en-us/dotnet/core/tutorials/top-level-templates
+
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/

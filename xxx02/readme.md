@@ -172,10 +172,10 @@ else
 switch (cow)
 {
     case "cow":
-    Console.WriteLine("Lowercase");
+        Console.WriteLine("Lowercase");
         break;
     case "Cow":
-    Console.WriteLine("Capitalized");
+        Console.WriteLine("Capitalized");
         break;
     default:
         break;

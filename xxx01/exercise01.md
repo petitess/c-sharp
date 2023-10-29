@@ -12,7 +12,7 @@ static private string GetText(string text)
 }  
 ```
 2. Make a method that prints a names with reversed characters
-```
+```cs
 static void Main(string[] args)
 {
     Console.WriteLine("what's your name");

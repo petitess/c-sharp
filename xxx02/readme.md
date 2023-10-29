@@ -74,16 +74,17 @@ Variables
             bool myBool = true;
 ```
 
-Nuget
+XXX
 ```
-dotnet nuget list source
-dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+x
 ```
 
 dotnet
 ```
 dotnet restore
 dotnet run
+dotnet nuget list source
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 ```
 
 https://learn.microsoft.com/en-us/dotnet/core/tutorials/top-level-templates

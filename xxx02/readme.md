@@ -182,8 +182,63 @@ switch (cow)
 }
 ```
 ### Loops
-```cd
-x
+```cs
+//For
+DateTime start = DateTime.Now;
+int[] intsToCompress = new int[] { 10, 15, 20, 25, 30, 12, 34 };
+int totalValue = 0;
+for (int i = 0; i < intsToCompress.Length; i++)
+{
+    totalValue += intsToCompress[i];
+}
+Console.WriteLine((DateTime.Now - start).TotalSeconds);
+Console.WriteLine(totalValue);
+//Foreach
+start = DateTime.Now;
+totalValue = 0;
+foreach (int intToCompress in intsToCompress)
+{
+    totalValue += intToCompress;
+}
+Console.WriteLine((DateTime.Now - start).TotalSeconds);
+Console.WriteLine(totalValue);
+//While
+start = DateTime.Now;
+int index = 0;
+totalValue = 0;
+while (index < intsToCompress.Length)
+{
+    totalValue += intsToCompress[index];
+    index++;
+}
+Console.WriteLine((DateTime.Now - start).TotalSeconds);
+Console.WriteLine(totalValue);
+//Do while
+start = DateTime.Now;
+index = 0;
+totalValue = 0;
+do
+{
+    totalValue += intsToCompress[index];
+    index++;
+}
+while (index < intsToCompress.Length);
+Console.WriteLine((DateTime.Now - start).TotalSeconds);
+Console.WriteLine(totalValue);
+//Sum
+totalValue = 0;
+totalValue = intsToCompress.Sum();
+Console.WriteLine(totalValue);
+//if
+totalValue = 0;
+foreach (int intToCompress in intsToCompress)
+{
+    if (intToCompress > 20)
+    {
+        totalValue += intToCompress;
+    }
+}
+Console.WriteLine(totalValue);
 ```
 ### dotnet
 ---

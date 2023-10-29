@@ -106,7 +106,7 @@ Dictionary<string, string[]> dictionary2 = new Dictionary<string, string[]>(){
 Console.WriteLine(dictionary2["Dairy"][0]);
 ```
 ### Operators and Conditionals
-```
+```cs
 //Arithmetic operators
 int intx = 5;
 Console.WriteLine(intx);
@@ -142,6 +142,10 @@ Console.WriteLine(intx >= inty);
 //And Or
 Console.WriteLine(50 > intx && inty > 5);
 
+```
+### Conditionals
+```
+zz
 ```
 ### dotnet
 ---

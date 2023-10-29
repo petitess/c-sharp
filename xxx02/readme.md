@@ -14,3 +14,11 @@ Nuget
 dotnet nuget list source
 dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 ```
+
+dotnet
+```
+dotnet restore
+dotnet run
+```
+
+https://learn.microsoft.com/en-us/dotnet/core/tutorials/top-level-templates

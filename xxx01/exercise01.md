@@ -11,7 +11,7 @@ static private string GetText(string text)
     return text;
 }  
 ```
-2. Make a method that prints a names with reversed characters
+2. Make a method that prints a name with reversed characters
 ```cs
 static void Main(string[] args)
 {

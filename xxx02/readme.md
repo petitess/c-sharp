@@ -143,7 +143,7 @@ Console.WriteLine(intx >= inty);
 Console.WriteLine(50 > intx && inty > 5);
 
 ```
-### Conditionals
+### Conditional Statements
 ```
 zz
 ```

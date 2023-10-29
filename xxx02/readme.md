@@ -75,9 +75,38 @@ bool myBool = true;
 
 ### Data Structures
 ---
-Array
-```
-x
+```cs
+//Array version 1
+string[] names = new string[3];
+names[0] = "Ann";   
+names[1] = "Bob";
+names[2] = "Carl";
+Console.WriteLine(names[1]);
+//Array version 2
+string[] fruits = {"Apple", "Orange", "Banana", "Pineapple"};
+Console.WriteLine(fruits[3]);
+//List
+List<string> vegetables = new List<string>() {"Potatos", "Cucumber", "Celery"};
+vegetables.Add("Beet");
+Console.WriteLine(vegetables[3]);
+//IEnumerable
+IEnumerable<string> vegetables2 = vegetables; 
+Console.WriteLine(vegetables2.First());
+//Two dimensional array
+string[,] twoArrays = new string[,] {
+  {"Key", "Wallet"}, //First array
+  {"Bag", "Purse"} //Second array
+};
+Console.WriteLine(twoArrays[0,1]);
+Console.WriteLine(twoArrays[1,0]);
+//Dictionary
+Dictionary<string, string> dictionary = new Dictionary<string, string>(){
+  {"Cheese", "Dairy" },
+  {"Potatos", "Vegetables"},
+  {"Ice Cream", "Freezer"}
+};
+Console.WriteLine(dictionary["Potatos"]);
+Console.WriteLine(dictionary["Ice Cream"]);
 ```
 
 ### dotnet

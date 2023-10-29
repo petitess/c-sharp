@@ -107,7 +107,40 @@ Console.WriteLine(dictionary2["Dairy"][0]);
 ```
 ### Operators and Conditionals
 ```
-ss
+//Arithmetic operators
+int intx = 5;
+Console.WriteLine(intx);
+intx ++;
+Console.WriteLine(intx);
+intx += 9;
+Console.WriteLine(intx);
+int inty = 10;
+Console.WriteLine(intx * inty);
+Console.WriteLine((double)intx / inty);
+Console.WriteLine(Math.Pow(5,2));
+Console.WriteLine(Math.Sqrt(25));
+
+int myFirstValue = 7;
+int mySecondValue = 5;
+Console.WriteLine(myFirstValue + mySecondValue);
+Console.WriteLine(myFirstValue - mySecondValue);
+Console.WriteLine(myFirstValue * mySecondValue);
+Console.WriteLine(myFirstValue > mySecondValue);
+//String
+string car = "Volvo";
+Console.WriteLine(car);
+car += " and Polestar";
+Console.WriteLine(car);
+car += " are owned by \"Volvo Personvagnar\"";
+Console.WriteLine(car);
+string[] carArr = car.Split("by ");
+Console.WriteLine(carArr[1]);
+//Conditionals
+Console.WriteLine(intx.Equals(inty));
+Console.WriteLine(intx.Equals(inty + 5));
+Console.WriteLine(intx >= inty);
+//And Or
+Console.WriteLine(50 > intx && inty > 5);
 
 ```
 ### dotnet

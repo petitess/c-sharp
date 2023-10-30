@@ -257,8 +257,11 @@ dotnet restore
 dotnet run
 dotnet nuget list source
 dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+//SQL pakages
 dotnet add package Dapper
 dotnet add package microsoft.data.sqlclient
+dotnet add package microsoft.entityframework
+dotnet add package microsoft.entityframeworkcore
 ```
 
 https://learn.microsoft.com/en-us/dotnet/core/tutorials/top-level-templates

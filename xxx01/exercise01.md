@@ -46,3 +46,27 @@ static private int GetSum(int[] number)
     return totalValue;
 }   
 ```
+4. Make a method that prints even numbers
+```cs
+static void Main(string[] args)
+{
+    int[] myInt = new int[] { 5, 8, 3, 9, 12 };
+
+    foreach (int i in myInt)
+    {
+        GetEven(i);
+    }
+}
+static private int GetEven(int number)
+{
+    if (number % 2 == 0)
+    {
+        Console.WriteLine(number);
+        return number;
+    }
+    else
+    {
+        return number;
+    }
+}
+```

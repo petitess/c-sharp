@@ -28,4 +28,21 @@ static private string ReverseText(string name)
 }
 
 ```
-3. c
+3. Make a method that sums an array of integers
+```
+static void Main(string[] args)
+{
+    int[] myNumbers = new int[] { 10, 15, 20, 25, 30, 12, 34 };
+    GetSum(myNumbers);
+;        }
+static private int GetSum(int[] number)
+{
+    int totalValue = 0;
+    foreach (int nr in number) 
+    {
+        totalValue += nr;
+    }
+    Console.WriteLine(totalValue);
+    return totalValue;
+}   
+```

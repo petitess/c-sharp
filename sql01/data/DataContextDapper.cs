@@ -1,5 +1,5 @@
-﻿using Dapper;
-using System;
+﻿
+using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -23,7 +23,7 @@ namespace DapperX.data
         public bool ExecuteSql(string sql)
         {
             IDbConnection dbConnection = new SqlConnection(_connection);
-            return (dbConnection.Execute(sql) > 0 );
+            return (dbConnection.Execute(sql) > 0);
         }
 
         public int ExecuteSqlWithRowCount(string sql)
@@ -34,3 +34,4 @@ namespace DapperX.data
 
     }
 }
+

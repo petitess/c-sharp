@@ -1,9 +1,4 @@
-﻿using Computer.Models;
-using Dapper;
-using DapperX.data;
-using Microsoft.Data.SqlClient;
-using System.Data;
-using System.Data.Common;
+﻿using DapperX.data;
 
 namespace SimpleMethod
 {
@@ -30,7 +25,7 @@ namespace SimpleMethod
                 HasWifi,
                 HasLTE,
                 VideoCard
-                ) VALUES ('" + myComputer.Motherboard 
+                ) VALUES ('" + myComputer.Motherboard
                      + "','" + myComputer.CPUCores
                      + "','" + myComputer.HasWifi
                      + "','" + myComputer.HasLTE
@@ -49,15 +44,15 @@ namespace SimpleMethod
                 FROM TutorialAppSchema.Computer";
 
             IEnumerable<Computer.Models.Computer> computers = dapper.LoadData<Computer.Models.Computer>(sqlSelect);
-            Console.WriteLine("'Motherboard', 'HasWifi', 'HasLTE', 'ReleaseDate',"
+            Console.WriteLine("'Motherboard', 'CPUCores,', 'HasWifi', 'HasLTE', 'ReleaseDate',"
                 + ", 'Prise', 'VideoCard'");
-            foreach(Computer.Models.Computer comp in computers)
+            foreach (Computer.Models.Computer comp in computers)
             {
-                Console.WriteLine("'" + myComputer.Motherboard 
-                     + "','" + myComputer.CPUCores
-                     + "','" + myComputer.HasWifi
-                     + "','" + myComputer.HasLTE
-                     + "','" + myComputer.VideoCard
+                Console.WriteLine("'" + comp.Motherboard
+                     + "','" + comp.CPUCores
+                     + "','" + comp.HasWifi
+                     + "','" + comp.HasLTE
+                     + "','" + comp.VideoCard
                      + "'");
             }
         }

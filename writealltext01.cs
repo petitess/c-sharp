@@ -39,8 +39,10 @@ namespace SimpleMethod
             using StreamWriter openFile = new("..\\..\\..\\log.txt", append: true);
             openFile.WriteLine(sql);
             openFile.Close();
+            //Save as variable
+            string fileText = File.ReadAllText("..\\..\\..\\log.txt");
             //Read the file
-            Console.WriteLine(File.ReadAllText("..\\..\\..\\log.txt"));
+            Console.WriteLine(fileText);
         }
     }
 }

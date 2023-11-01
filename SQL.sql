@@ -30,7 +30,8 @@ EXEC sp_addrolemember 'db_datareader', 'DESKTOP-CFCPFSG\JOBB';
 --Grant owner permission
 use DotNetCourseDatabase
 exec sp_addrolemember 'db_owner', 'DESKTOP-CFCPFSG\JOBB';
---Clear a databse
+--Clear a database
 USE DotNetCourseDatabase;
 GO
 TRUNCATE TABLE TutorialAppSchema.Computer
+SELECT * FROM TutorialAppSchema.Computer

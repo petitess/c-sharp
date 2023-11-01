@@ -1,20 +1,15 @@
 # C-sharp
 
-```C#
-using System;
 
-namespace MyApp // Note: actual namespace depends on the project name.
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-            Console.ReadLine();
-        }
-    }
-}
-```
+| Name | Description |
+| -----| ------------|
+automapper01 | map JSON data 
+configfile01 |configuration file to connect to a SQL server
+json01 | insert JSON data into SQL server
+sql01 | insert data into a database - dapper
+sql02 | insert data into a database - Entity Framework
+writealltext01.cs | write text to a file 
+
 ```
 git merge
 git rebase

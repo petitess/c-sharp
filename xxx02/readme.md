@@ -253,6 +253,7 @@ foreach (int number in myNumberList) {
 ### dotnet
 ---
 ```
+dotnet new webapi --name DotnetAPI
 dotnet restore
 dotnet run
 dotnet nuget list source

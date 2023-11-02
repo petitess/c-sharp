@@ -256,6 +256,7 @@ foreach (int number in myNumberList) {
 dotnet new webapi --name DotnetAPI
 dotnet restore
 dotnet run
+dotnet watch run
 dotnet nuget list source
 dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 //SQL pakages

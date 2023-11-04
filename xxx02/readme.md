@@ -3,6 +3,8 @@ Controllers help handle different API-requests made to our API and sending back 
 
 Dapper or Entity framework are used to connect and interact with a database. Dapper requires understanding of SQL. Entity framework has buildin SQL-functions.
 
+Constractor has the same name as class and is listed as public without a return(void).
+
 ### Variables
 ---
 Variable is stored data with a name(alias) and address

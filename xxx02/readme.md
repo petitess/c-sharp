@@ -1,3 +1,8 @@
+---
+Controllers help handle different API-requests made to our API and sending back a result to the user or doing some kind of interactionwith our database.
+
+Dapper or Entity framework are used to connect and interact with a database. Dapper requires understanding of SQL. Entity framework has buildin SQL-functions.
+
 ### Variables
 ---
 Variable is stored data with a name(alias) and address

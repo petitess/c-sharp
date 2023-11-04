@@ -4,9 +4,9 @@
 | Name | Description |
 | -----| ------------|
 automapper01 | map JSON data 
+automapper02 | map JSON data - Entity Framework
 configfile01 |configuration file to connect to a SQL server
 controller01 | endpoints to modify database - dapper
-automapper02 | map JSON data - Entity Framework
 controller02 | endpoints to modify database - Entity Framework
 json01 | insert JSON data into SQL server
 json02 | map JSON data - JSON property mapping

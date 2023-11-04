@@ -10,7 +10,7 @@ json01 | insert JSON data into SQL server
 json02 | map JSON data - JSON property mapping
 sql01 | insert data into a database - dapper
 sql02 | insert data into a database - Entity Framework
-sql03 | insert data into a database
+sql03 | insert data into a database, Users, UserJobInfo, UserSalary
 writealltext01.cs | write text to a file 
 
 ```

@@ -1,5 +1,5 @@
 using DotnetAPI.Data;
-using DotnetAPI.Models;
+using DotnetAPI.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotnetAPI.Controllers
@@ -69,7 +69,7 @@ namespace DotnetAPI.Controllers
         }
 
         [HttpPost("AddUser")]
-        public IActionResult AddUser(User user)
+        public IActionResult AddUser(UserToAddDto user)
         {
             string sql = @"
                     INSERT INTO TutorialAppSchema.Users(
@@ -90,7 +90,20 @@ namespace DotnetAPI.Controllers
             {
                 return Ok();
             }
-            throw new Exception("Failed to update user");
+            throw new Exception("Failed to add user");
+        }
+
+        [HttpDelete("DeleteUser/{userId}")]
+        public IActionResult DeleteUser(int userId) 
+        {
+            string sql = @"DELETE FROM TutorialAppSchema.Users 
+                            WHERE UserID =" + userId.ToString();
+            if (_dapper.ExecuteSql(sql))
+            {
+                return Ok();
+            }
+            throw new Exception("Failed to delete user");
+
         }
     }
 }

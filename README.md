@@ -5,7 +5,7 @@
 | -----| ------------|
 automapper01 | map JSON data 
 configfile01 |configuration file to connect to a SQL server
-controller01 | endpoints to modify database
+controller01 | endpoints to modify database - dapper
 json01 | insert JSON data into SQL server
 json02 | map JSON data - JSON property mapping
 sql01 | insert data into a database - dapper

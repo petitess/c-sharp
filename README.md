@@ -9,6 +9,9 @@ Ctrl + . | show error menu
 Ctrl + Alt + mouse click | select random multiple rows
 Alt + mouse select | select multiple rows
 Alt + Shift + . | select the same text
+Ctrl + K, Ctrl+C | Comment section
+Ctrl + K, Ctrl+U | Uncomment section
+Ctrl + Shift + * (SV) | Comment/Uncomment section
 
 # C-sharp repo
 | Name | Description |

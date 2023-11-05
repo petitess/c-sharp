@@ -107,7 +107,7 @@ public class UserController : ControllerBase
 }
 ```
 ### Create CORS policy
-```cd
+```cs
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors((options) =>

@@ -43,7 +43,7 @@ public class DataContextDapper
 ```cs
 public UserController(IConfiguration config) 
 {
-    //Console.WriteLine(config.GetConnectionString("DefaultConnection"));
+    _dapper = new DataContextDapper(config);
 }
 ```
 ```cs

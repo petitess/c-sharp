@@ -9,7 +9,7 @@ public class DataContextDapper
     {
         _config = config;
     }
-    public IEnumerable<T> LoadData<T>(string sql)
+    public IEnumerable<T> LoadData<T>(string sql) //method
     {
         IDbConnection dbConnection = new SqlConnetion(_config.GetConnectionString("DefaultConnection"));
         return dbConnection.Query<T>(sql);

@@ -1,5 +1,17 @@
 # C-sharp
 
+# Visual Stuido Shortcuts
+```
+Shift + Home - select line - right > left
+Shift + End -select line - left <> right
+Alt + Up Arrow - move a row
+Alt + Down Arrow - move a row
+Ctrl + . - show error menu
+Ctrl + Alt + mouse click - select random multiple rows
+Alt + mouse click - select multiple rows
+Alt + Shift + . - select the same text
+
+```
 
 | Name | Description |
 | -----| ------------|
@@ -46,12 +58,3 @@ git fetch
 
 https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/arithmetic-operators
 https://learn.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-7.2
-# Visual Stuido Shortcuts
-```
-Shift + Home
-Shift + End
-Alt + Up Arrow
-Alt + Down Arrow
-Ctrl + .
-
-```

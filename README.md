@@ -1,18 +1,16 @@
-# C-sharp
+# Visual Studio Shortcuts
+| Shortcut | Description |
+| -----| ------------|
+Shift + Home | select line - right > left
+Shift + End | select line - left <> right
+Alt + Up Arrow | move a row
+Alt + Down Arrow | move a row
+Ctrl + . | show error menu
+Ctrl + Alt + mouse click | select random multiple rows
+Alt + mouse click | select multiple rows
+Alt + Shift + . | select the same text
 
-# Visual Stuido Shortcuts
-```
-Shift + Home - select line - right > left
-Shift + End -select line - left <> right
-Alt + Up Arrow - move a row
-Alt + Down Arrow - move a row
-Ctrl + . - show error menu
-Ctrl + Alt + mouse click - select random multiple rows
-Alt + mouse click - select multiple rows
-Alt + Shift + . - select the same text
-
-```
-
+# C-sharp repo
 | Name | Description |
 | -----| ------------|
 automapper01 | map JSON data 

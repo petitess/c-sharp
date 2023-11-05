@@ -79,6 +79,54 @@ public class User
 ```
 ### Create a UserController
 ```cs
+public class UserController : ControllerBase
+{
+    DataContextDapper _dapper;
+    public UserController(IConfiguration config)
+    {
+        _dapper = new DataContextDapper(config);
+    }
+    [HttpGet("GetUsers")]
+    public IEnumerable<User> GetUsers(IEnumerable<User> data)
+    {
+        return data.Select(d => d);
+    }
+    [HttpGet("GetSingleUser/{UserId}")]
+    public User GetSingleUser(int UserId)
+    {
+        string sql = @"SELECT [UserId],
+                        [FirstName],
+                        [LastName],
+                        [Email],
+                        [Gender],
+                        [Active] FROM TutorialAppSchema.Users
+                        WHERE UserId = " + UserId.ToString();
+        User user = _dapper.LoadDataSingle<User>(sql);
+        return user;
+    }
+}
+```
+### Create CORS policy
+```cd
+var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors((options) =>
+{
+    options.AddPolicy("DevCors", (corsBuilder) =>
+    {
+        corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
 
+    });
+    options.AddPolicy("ProdCors", (corsBuilder) =>
+    {
+        corsBuilder.WithOrigins("https://myproductionsite.com")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+
+    });
+});
 ```

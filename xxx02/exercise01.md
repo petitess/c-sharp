@@ -51,10 +51,18 @@ public class UserController : ControllerBase
         _dapper = new DataContextDapper(config);
     }
     [HttpGet("GetUsers")]
-    public IEnumerable<User> GetUsers(IEnumerable<User> data)
+    public IEnumerable<User> GetUsers()
     {
-        return data.Select(d => d);
-    }
+    string sql = @"
+       SELECT [UserId],
+            [FirstName],
+            [LastName],
+            [Email],
+            [Gender],
+            [Active] FROM TutorialAppSchema.Users";
+    IEnumerable<User> users = _dapper.LoadData<User>(sql);
+    return users;
+}
     [HttpGet("GetSingleUser/{UserId}")]
     public User GetSingleUser(int UserId)
     {

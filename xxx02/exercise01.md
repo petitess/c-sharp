@@ -30,6 +30,30 @@ public class DataContextDapper
     "DefaultConnection": "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true"
   },
 ```
+### Create CORS policy
+```cs
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors((options) =>
+{
+    options.AddPolicy("DevCors", (corsBuilder) =>
+    {
+        corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+
+    });
+    options.AddPolicy("ProdCors", (corsBuilder) =>
+    {
+        corsBuilder.WithOrigins("https://myproductionsite.com")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+
+    });
+});
+```
 ### Createa a User-model
 ```cs
 public class User
@@ -77,28 +101,4 @@ public class UserController : ControllerBase
         return user;
     }
 }
-```
-### Create CORS policy
-```cs
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddCors((options) =>
-{
-    options.AddPolicy("DevCors", (corsBuilder) =>
-    {
-        corsBuilder.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8000")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-
-    });
-    options.AddPolicy("ProdCors", (corsBuilder) =>
-    {
-        corsBuilder.WithOrigins("https://myproductionsite.com")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
-
-    });
-});
 ```

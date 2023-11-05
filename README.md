@@ -7,7 +7,7 @@ Alt + Up Arrow | move a row
 Alt + Down Arrow | move a row
 Ctrl + . | show error menu
 Ctrl + Alt + mouse click | select random multiple rows
-Alt + mouse click | select multiple rows
+Alt + mouse select | select multiple rows
 Alt + Shift + . | select the same text
 
 # C-sharp repo

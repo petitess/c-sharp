@@ -1,6 +1,6 @@
 ## Create API controller
 
-### Create a data context  (install dapper and automapper)
+### Create a data context  (install dapper)
 ```cs
 public class DataContextDapper
 {

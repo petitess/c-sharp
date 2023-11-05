@@ -26,19 +26,9 @@ public class DataContextDapper
 ### Create a database connection
 
 ```json
-{
   "ConnectionStrings": {
     "DefaultConnection": "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true"
   },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Information",
-      "Microsoft.AspNetCore": "Warning"
-    }
-  },
-  "AllowedHosts": "*"
-}
-
 ```
 ```cs
 public UserController(IConfiguration config) 

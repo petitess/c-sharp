@@ -113,7 +113,7 @@ public class UserController : ControllerBase
 }
 ```
 ## Intermediate
-### Add a PUT request
+### Add a PUT, POST, and DELETE request
 ```cs
 public bool ExecuteSql(string sql)
 {
@@ -145,5 +145,50 @@ public User EditUser(User user)
         return user;
     }
     throw new Exception("Failed to update user");
+}
+
+[HttpPost("AddUser")]
+public IActionResult AddUser(UserToAddDto user)
+{
+    string sql = @"INSERT INTO TutorialAppSchema.Users(
+                        [FirstName],
+                        [LastName],
+                        [Email],
+                        [Gender],
+                        [Active]
+                        ) VALUES (" + 
+                        "'" + user.FirstName + 
+                        "', '" + user.LastName + 
+                        "', '" + user.Email +
+                        "', '" + user.Gender +
+                        "', '" + user.Active +
+                        "')";
+    if (_dapper.ExecuteSql(sql))
+    {
+        return Ok();
+    }
+    throw new Exception("Failed to update user");
+}
+
+[HttpDelete("DeleteUser/{UserId}")]
+public IActionResult DeleteUser(int UserId)
+{
+    string sql = @"DELETE FROM TutorialAppSchema.Users
+                    WHERE UserId =" + UserId.ToString();
+    if (_dapper.ExecuteSql(sql))
+    {
+        return Ok();
+    }
+    throw new Exception("Failed to delte user");
+}
+```
+```cs
+public class UserToAddDto
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Email{ get; set; }
+    public string Gender { get; set; }
+    public bool Active { get; set; }
 }
 ```

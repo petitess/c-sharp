@@ -112,3 +112,38 @@ public class UserController : ControllerBase
     }
 }
 ```
+## Intermediate
+### Add a PUT request
+```cs
+public bool ExecuteSql(string sql)
+{
+    IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+    return dbConnection.Execute(sql) > 0;
+}
+
+public int ExecuteSqlWithRowCount(string sql)
+{
+    IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+    return dbConnection.Execute(sql);
+}
+```
+```cs
+[HttpPut("EditUser")]
+public User EditUser(User user)
+{
+    string sql = @"
+                UPDATE TutorialAppSchema.Users
+                SET 
+                [FirstName] = '" + user.FirstName + 
+                "', [LastName] = '" + user.LastName + 
+                "', [Email] = '" + user.LastName +
+                "', [Gender] = '" + user.Gender + 
+                "', [Active] = '" + user.Active + 
+                "' WHERE UserId = " + +user.UserId;
+    if (_dapper.ExecuteSql(sql))
+    {
+        return user;
+    }
+    throw new Exception("Failed to update user");
+}
+```

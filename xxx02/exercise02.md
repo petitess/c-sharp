@@ -73,6 +73,15 @@ builder.Services.AddCors((options) =>
 
     });
 });
+var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("DevCors");
+}
+else
+{
+    app.UseCors("ProdCors");
+}
 ```
 ### Create a UserController
 ```cs

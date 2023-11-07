@@ -85,5 +85,70 @@ else
 ```
 ### Create a UserController
 ```cs
+[ApiController]
+[Route("[controller]")]
+public class UserEFController : ControllerBase
+{
+    DataContextEF _entityFramework;
+    IMapper _mapper;
+    public UserEFController(IConfiguration config)
+    {
+        _entityFramework = new DataContextEF(config);
+        _mapper = new Mapper(new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<User, User>();
+        }));
+    }
 
+    [HttpGet("GetUsers")]
+    public IEnumerable<User> GetUsers() 
+    {
+        IEnumerable<User> users = _entityFramework.Users.ToList();
+        return users;
+    }
+
+    [HttpGet("GetUser/{userId}")]
+    public User GetUser(int userId) 
+    {
+        User? user = _entityFramework.Users
+            .Where(u => u.UserId == userId)
+            .FirstOrDefault<User>();
+        if (user != null) 
+        {
+        return user;
+        }
+        throw new Exception("Failed to get user");
+    }
+    [HttpPut("EditUser")]
+    public IActionResult EditUser(User user)
+    {
+        User? userX = _entityFramework.Users
+            .Where(u => u.UserId == user.UserId)
+            .FirstOrDefault<User>();
+        if (userX != null)
+        {
+            userX.FirstName = user.FirstName;
+            userX.LastName = user.LastName;
+            userX.Email = user.Email;
+            userX.Gender = user.Gender;
+            userX.Active = user.Active;
+            if (_entityFramework.SaveChanges() > 0)
+            {
+                return Ok();
+            }
+        }
+        throw new Exception("Failder to update user");
+    }
+    [HttpPost("NewUser")]
+    public IActionResult NewUser(User user)
+    {
+        User userX = _mapper.Map<User>(user);
+        _entityFramework.Add(userX);
+        if (_entityFramework.SaveChanges() > 0)
+        {
+            return Ok();
+        }
+        throw new Exception("Failed to add a new user.");
+    }
+}
 ```

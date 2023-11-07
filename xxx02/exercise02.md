@@ -119,36 +119,5 @@ public class UserEFController : ControllerBase
         }
         throw new Exception("Failed to get user");
     }
-    [HttpPut("EditUser")]
-    public IActionResult EditUser(User user)
-    {
-        User? userX = _entityFramework.Users
-            .Where(u => u.UserId == user.UserId)
-            .FirstOrDefault<User>();
-        if (userX != null)
-        {
-            userX.FirstName = user.FirstName;
-            userX.LastName = user.LastName;
-            userX.Email = user.Email;
-            userX.Gender = user.Gender;
-            userX.Active = user.Active;
-            if (_entityFramework.SaveChanges() > 0)
-            {
-                return Ok();
-            }
-        }
-        throw new Exception("Failder to update user");
-    }
-    [HttpPost("NewUser")]
-    public IActionResult NewUser(User user)
-    {
-        User userX = _mapper.Map<User>(user);
-        _entityFramework.Add(userX);
-        if (_entityFramework.SaveChanges() > 0)
-        {
-            return Ok();
-        }
-        throw new Exception("Failed to add a new user.");
-    }
 }
 ```

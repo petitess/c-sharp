@@ -19,13 +19,14 @@ public class User
 ```cs
 public class DataContextEF : DbContext
 {
+    //Constractor:
     private readonly IConfiguration _config;
     public DataContextEF(IConfiguration config)
     {
         _config = config;
     }
     public virtual DbSet<User> Users { get; set; }
-
+    //Connection to DB
     protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
     {
         if(optionBuilder.IsConfigured)
@@ -34,6 +35,7 @@ public class DataContextEF : DbContext
                 optionBuilder => optionBuilder.EnableRetryOnFailure());
         }
     }
+    //Choose default schema
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("TutorialAppSchema");

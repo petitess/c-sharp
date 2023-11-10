@@ -16,17 +16,6 @@ Ctrl + Shift + * (SV) | Comment/Uncomment section
 # C-sharp repo
 | Name | Description |
 | -----| ------------|
-automapper01 | map JSON data 
-automapper02 | map JSON data - Entity Framework
-configfile01 |configuration file to connect to a SQL server
-controller01 | endpoints to modify database - dapper
-controller02 | endpoints to modify database - Entity Framework
-entityframework02 | endpoints to modify database - UserRepository
-json01 | insert JSON data into SQL server
-json02 | map JSON data - JSON property mapping
-sql01 | insert data into a database - dapper
-sql02 | insert data into a database - Entity Framework
-sql03 | insert data into a database, Users, UserJobInfo, UserSalary
 writealltext01.cs | write text to a file 
 
 ```

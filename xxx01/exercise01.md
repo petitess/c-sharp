@@ -1,34 +1,35 @@
 1. Make a method that prints a choosen string.
 ```cs
-static void Main(string[] args)
+string text = "I like roses";
+GetText(text);
+
+static string GetText(string xxx)
 {
-    string myText = "Hej Sverige";
-    GetText(myText);
+    Console.WriteLine(xxx);
+    return xxx;
 }
-static private string GetText(string text)
-{
-    Console.WriteLine(text);
-    return text;
-}  
 ```
 2. Make a method that prints a name with reversed characters
 ```cs
-static void Main(string[] args)
-{
-    Console.WriteLine("what's your name");
-    string name = Console.ReadLine();
-    ReverseText(name);
-}
-static private string ReverseText(string name)
-{
-   char[] namex = name.ToCharArray();
-   Array.Reverse(namex);
-   Console.WriteLine(namex);
-   return String.Concat(namex);
-}
+Console.WriteLine("Whats your name?");
+string? answer = Console.ReadLine();
+if (answer != null)
+ReversedName(answer);
 
+static string ReversedName(string name)
+{
+    char[] array = name.ToCharArray();
+    Array.Reverse(array);
+    if (array.Length > 0)
+    {
+        Console.WriteLine(array);
+        return String.Concat(array);
+    }
+    Console.WriteLine("No name provided");
+    return String.Concat(array);
+}
 ```
-3. Make a method that sums an array of integers
+3. Make a method that sums an array of integers using `foreach`
 ```cs
 static void Main(string[] args)
 {
@@ -46,27 +47,30 @@ static private int GetSum(int[] number)
     return totalValue;
 }   
 ```
-4. Make a method that prints even numbers
+4. Make a method that sums an array of integers using `.Sum`
 ```cs
-static void Main(string[] args)
-{
-    int[] myInt = new int[] { 5, 8, 3, 9, 12 };
+int[] myNumbers = new int[] {4,7,23,9,3};
+GetSum(myNumbers);
 
-    foreach (int i in myInt)
-    {
-        GetEven(i);
-    }
-}
-static private int GetEven(int number)
+static int GetSum(int[] numbers)
 {
-    if (number % 2 == 0)
+    Console.WriteLine(numbers.Sum());
+    return numbers.Sum();
+}
+```
+5. Make a method that prints even numbers
+```cs
+int[] myNumbers = new int[] {4, 6, 7, 23,9,3,66,10};
+foreach (int i in myNumbers)
+    GetEven(i);
+
+static int GetEven(int numbers)
+{
+    if (numbers % 2 == 0)
     {
-        Console.WriteLine(number);
-        return number;
+        Console.WriteLine(numbers);
+        return numbers;
     }
-    else
-    {
-        return number;
-    }
+    return numbers;
 }
 ```

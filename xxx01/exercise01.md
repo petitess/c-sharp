@@ -31,21 +31,19 @@ static string ReversedName(string name)
 ```
 3. Make a method that sums an array of integers using `foreach`
 ```cs
-static void Main(string[] args)
-{
-    int[] myNumbers = new int[] { 10, 15, 20, 25, 30, 12, 34 };
-    GetSum(myNumbers);
-;        }
-static private int GetSum(int[] number)
+int[] myNumbers = new int[] {5,8,1,7,45};
+GetSum(myNumbers); 
+
+int GetSum(int[] numbers)
 {
     int totalValue = 0;
-    foreach (int nr in number) 
+    foreach (int number in numbers)
     {
-        totalValue += nr;
+        totalValue += number;
     }
     Console.WriteLine(totalValue);
     return totalValue;
-}   
+} 
 ```
 4. Make a method that sums an array of integers using `.Sum`
 ```cs

@@ -1,4 +1,8 @@
-1. Make an application where a user types a number and the application prints every number from 1 to the user number. The second part of appliction is when a user must guess a number from 1 to 10. 
+1. Make an application where a user types a number and the application prints every number from 1 to the user number. The second part of appliction is when a user must guess a number from 1 to 10.
+- Make a menu with options
+- Create methods for options
+- Connect method with options
+- Build displayMenu function
 ```cs
 bool displayMenu = true;
 while (displayMenu)

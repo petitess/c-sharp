@@ -12,6 +12,7 @@ Alt + Shift + . | select the same text
 Ctrl + K, Ctrl+C | Comment section
 Ctrl + K, Ctrl+U | Uncomment section
 Ctrl + Shift + * (SV) | Comment/Uncomment section
+Ctrl + Shift + Left/Right Arrow | select text
 
 # C-sharp repo
 | Name | Description |

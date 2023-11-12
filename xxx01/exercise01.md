@@ -47,14 +47,8 @@ int GetSum(int[] numbers)
 ```
 4. Make a method that sums an array of integers using `.Sum`
 ```cs
-int[] myNumbers = new int[] {4,7,23,9,3};
-GetSum(myNumbers);
-
-static int GetSum(int[] numbers)
-{
-    Console.WriteLine(numbers.Sum());
-    return numbers.Sum();
-}
+int[] myNumbers = new int[] {5,8,1,7,45};
+Console.WriteLine(myNumbers.Sum());
 ```
 5. Make a method that prints even numbers
 ```cs

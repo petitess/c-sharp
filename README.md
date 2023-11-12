@@ -2,7 +2,7 @@
 | Shortcut | Description |
 | -----| ------------|
 Shift + Home | select line - right > left
-Shift + End | select line - left <> right
+Shift + End | select line - left > right
 Alt + Up Arrow | move a row
 Alt + Down Arrow | move a row
 Ctrl + . | show error menu
@@ -16,7 +16,10 @@ Ctrl + Shift + * (SV) | Comment/Uncomment section
 # C-sharp repo
 | Name | Description |
 | -----| ------------|
-writealltext01.cs | write text to a file 
+Directory.Delete01.cs | delete files from a directory
+Directory.GetFiles01.cs | list files in a folder
+File.WriteAllText01.cs | write text to a file
+FileInfo.MoveTo01.cs | rename files
 
 ```
 git merge

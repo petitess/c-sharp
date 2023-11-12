@@ -66,3 +66,12 @@ static int GetEven(int numbers)
     return numbers;
 }
 ```
+6. Calculate Average Age
+```cs
+int[] age = new int[] { 8, 44, 22, 37, 21, 44, 88 };
+
+int sum = age.Sum();
+int amount = age.Count();
+
+Console.WriteLine("The average ages is: " + sum / amount);
+```

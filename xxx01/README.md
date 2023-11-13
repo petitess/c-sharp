@@ -113,3 +113,35 @@ finally
 }
 Console.ReadKey();
 ```
+### Operator
+````cs
+int nr1 = 5;
+int nr2 = 6;
+//post increment operator
+Console.WriteLine(nr1++);
+//pre increment operator
+Console.WriteLine(++nr1);
+//decrement operator
+Console.WriteLine(nr1--);
+//pre decrement operator
+Console.WriteLine(--nr1);
+//additive operator
+int result = nr1 + nr2;
+int result2 = nr1 - nr2;
+//multiplicative operator
+int result3 = nr1 * nr2;
+int result4 = nr1 / nr2;
+//modulo operator - returns the remainder or signed remainder of a division
+int result5 = 10 % 4;
+//relational and type operators
+bool isLower;
+isLower = 3 < 7;
+//equality operator
+bool isEqual;
+isEqual = 5 == 8;
+//conditional operator
+bool isEnabled = true;
+bool isEmpty = true;
+bool isEnabledAndEmpty = isEnabled &&  isEmpty;
+bool isEnabledOrEmpty = isEnabled || isEmpty;
+```

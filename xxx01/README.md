@@ -61,3 +61,26 @@ const double PI = 3.14;
 const int weeks = 52, month = 12;
 const string birthday = "01.01.2001";
 ```
+### Mathod
+```cs
+GetText(TEST");
+//(static) void is return type, mathod name(parameter)
+static void GetText(string x)
+{
+    Console.WriteLine(x);
+}
+///
+Add(4, 6); 
+static int Add(int nr1, int nr2)
+{
+    Console.WriteLine(nr1 + nr2);
+    return nr1 + nr2;
+}
+///
+Devide(23, 9);
+static double Devide(double nr1, double nr2)
+{
+    Console.WriteLine(nr1 / nr2);
+    return nr1 / nr2;
+}
+```

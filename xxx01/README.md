@@ -55,3 +55,9 @@ Console.WriteLine(fullName);
 string title = "Total Recall";
 Console.WriteLine(String.Format("I enjoyed {0}", title));
 ```
+### Constants
+```cs
+const double PI = 3.14;
+const int weeks = 52, month = 12;
+const string birthday = "01.01.2001";
+```

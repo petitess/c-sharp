@@ -84,3 +84,32 @@ static double Devide(double nr1, double nr2)
     return nr1 / nr2;
 }
 ```
+### Try-catch
+```cs
+Console.WriteLine("Please enter a number");
+string? input = Console.ReadLine();
+Console.WriteLine("Please enter a second number");
+string? input2 = Console.ReadLine();
+try
+{
+    int inputAsInt = int.Parse(input);
+    Console.WriteLine(double.Parse(input) / double.Parse(input2));
+}
+catch (FormatException)
+{
+    Console.WriteLine("format exeption, please enter the correct type.");
+}
+catch (OverflowException)
+{
+    Console.WriteLine("Overflow exception. The number was too long or too short.");
+}
+catch (Exception)
+{
+    Console.WriteLine("General exception");
+}
+finally
+{
+    Console.WriteLine("This is called anyways");
+}
+Console.ReadKey();
+```

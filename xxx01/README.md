@@ -114,7 +114,7 @@ finally
 Console.ReadKey();
 ```
 ### Operator
-````cs
+```cs
 int nr1 = 5;
 int nr2 = 6;
 //post increment operator
@@ -144,4 +144,40 @@ bool isEnabled = true;
 bool isEmpty = true;
 bool isEnabledAndEmpty = isEnabled &&  isEmpty;
 bool isEnabledOrEmpty = isEnabled || isEmpty;
+```
+### TryParse Method 
+```cs
+string number = "100";
+float parsedValue;
+bool success = float.TryParse(number, out parsedValue);
+if (success)
+{
+    Console.WriteLine("Parsing successful - number is " + parsedValue);
+}
+else
+{
+    Console.WriteLine("Parsing failed");
+}
+///
+Console.WriteLine("What's the temperature?");
+string? temp = Console.ReadLine();
+int tempInt;
+int tempX;
+
+if (int.TryParse(temp, out tempInt))
+{
+    tempX = tempInt;
+}
+else
+{
+    tempX = 0;
+}
+if (tempInt < 5)
+{
+    Console.WriteLine("It's cold");
+}
+else if (tempInt > 5)
+{
+    Console.WriteLine("It's warm");
+}
 ```

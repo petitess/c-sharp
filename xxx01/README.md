@@ -200,3 +200,10 @@ switch (age)
         break;
 }
 ```
+### Ternary Operator
+```cs
+int number1 = 8;
+int number2 = 55; 
+string my = number1 > number2 ? "number1 is bigger" : "number2 is bigger";
+Console.WriteLine(my);
+```

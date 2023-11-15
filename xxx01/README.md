@@ -181,3 +181,22 @@ else if (tempInt > 5)
     Console.WriteLine("It's warm");
 }
 ```
+### Switch
+```cs
+int age = 15;
+switch (age)
+{
+    case 15:
+        Console.WriteLine("Too young to party");
+        break;
+    case 25: 
+        Console.WriteLine("Good to go");
+        break;
+    case 45:
+        Console.WriteLine("Too old to party");
+        break;
+    default: 
+        Console.WriteLine("How old are you then");
+        break;
+}
+```

@@ -203,7 +203,8 @@ switch (age)
 ### Ternary Operator
 ```cs
 int number1 = 8;
-int number2 = 55; 
-string my = number1 > number2 ? "number1 is bigger" : "number2 is bigger";
+int number2 = 5;
+int number3 = 10;
+string my = number3 > 100 ? "number3 is bigger than 100" : number1 > number2 ? "number1 is bigger" :  "number2 is bigger" ;
 Console.WriteLine(my);
 ```

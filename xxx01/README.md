@@ -221,3 +221,14 @@ for (int number = 0;  number <= 20; number+=2)
     Console.WriteLine(number);
 }
 ```
+```cs
+int lenghtOfText = 0;
+do
+{
+    Console.WriteLine("Enter your name");
+    string? name = Console.ReadLine();
+    int nameLenght = name.Length;
+    lenghtOfText += nameLenght;
+    Console.WriteLine(nameLenght);
+}while (lenghtOfText < 10);
+```

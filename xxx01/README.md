@@ -232,3 +232,22 @@ do
     Console.WriteLine(nameLenght);
 }while (lenghtOfText < 10);
 ```
+```cs
+int count = 0;
+while (count < 10)
+{
+    Console.WriteLine(count);
+    count++;
+}
+//
+int counter = 0;
+string? text = "";
+while (text.Equals(""))
+{
+    Console.WriteLine("Press enter");
+    text = Console.ReadLine();
+    counter++;
+    Console.WriteLine("People count is " +  counter);
+}
+Console.WriteLine(counter + " People");
+```

@@ -251,3 +251,33 @@ while (text.Equals(""))
 }
 Console.WriteLine(counter + " People");
 ```
+```cs
+for(int counter = 0; counter <= 12; counter ++)
+{
+    Console.WriteLine(counter);
+    if (counter == 3)
+    {
+        Console.WriteLine("At 3 we stop");
+        break;
+    }
+}
+```
+```cs
+for (int counter = 0; counter <= 12; counter++)
+{
+    if (counter == 3)
+    {
+        Console.WriteLine("At 3 we stop");
+        continue;
+    }
+    Console.WriteLine(counter);
+}
+```
+```cs
+for (int counter = 0; counter <= 12; counter++)
+{
+    if (counter %2 == 0)
+        continue;
+    Console.WriteLine(counter);
+}
+```

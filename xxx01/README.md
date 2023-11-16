@@ -209,3 +209,15 @@ int number3 = 10;
 string my = number3 > 100 ? "number3 is bigger than 100" : number1 > number2 ? "number1 is bigger" :  "number2 is bigger" ;
 Console.WriteLine(my);
 ```
+### Loops
+```cs
+for (int counter = 0; counter <= 12; counter+=3)
+{
+    Console.WriteLine(counter);
+}
+//
+for (int number = 0;  number <= 20; number+=2)
+{
+    Console.WriteLine(number);
+}
+```

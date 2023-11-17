@@ -9,10 +9,18 @@ Ctrl + . | show error menu
 Ctrl + Alt + mouse click | select random multiple rows
 Alt + mouse select | select multiple rows
 Alt + Shift + . | select the same text
-Ctrl + K, Ctrl+C | Comment section
-Ctrl + K, Ctrl+U | Uncomment section
+Ctrl + K, Ctrl + C | Comment section
+Ctrl + K, Ctrl + U | Uncomment section
 Ctrl + Shift + * (SV) | Comment/Uncomment section
 Ctrl + Shift + Left/Right Arrow | select text
+F12 | sends you to a constractor
+Ctrl + - | sends you back to previous file (F12) 
+Ctrl + Space | IntelliSense 
+Ctrl + M | collapse block of code
+Ctrl + R + R | rename mathod or class
+Ctrl + Tab | move between files
+F5 | Run code
+
 
 # C-sharp repo
 | Name | Description |

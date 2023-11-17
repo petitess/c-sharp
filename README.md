@@ -20,7 +20,14 @@ Ctrl + M | collapse block of code
 Ctrl + R + R | rename mathod or class
 Ctrl + Tab | move between files
 F5 | Run code
-
+# Visual Studio Code Snippets
+| Shortcut | Description |
+| -----| ------------|
+cw | Console.WriteLine();
+ctor | Create constractor
+if | if function
+while | while function
+prop | properties
 
 # C-sharp repo
 | Name | Description |

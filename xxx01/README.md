@@ -1,4 +1,7 @@
 https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/
+
+Install [Azure CLI](Loops.md)
+
 ### SCOPES
 ```
 classes are "black boxes"

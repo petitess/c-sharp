@@ -75,3 +75,17 @@ int amount = age.Count();
 
 Console.WriteLine("The average ages is: " + sum / amount);
 ```
+```cs
+int[] xxx = new int[] {4,3,6,77};
+GetNr(xxx);
+double GetNr(int[] ints)
+{  
+   double totalValue = 0;
+       foreach (int x in ints)
+    {
+        totalValue += x;
+    }
+    Console.WriteLine(totalValue / ints.Length);
+    return totalValue;
+}
+```

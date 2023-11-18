@@ -1,6 +1,7 @@
 https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/
 
 ### [Loops](Loops01.md)
+### [Collections](Arrays01.md)
 
 ### SCOPES
 ```

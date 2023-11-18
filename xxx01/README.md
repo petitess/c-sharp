@@ -1,6 +1,6 @@
 https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/
 
-Install [Azure CLI](Loops.md)
+### [Loops](Loops01.md)
 
 ### SCOPES
 ```

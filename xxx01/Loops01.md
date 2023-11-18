@@ -106,3 +106,22 @@ while (input != "-1")
 }
 Console.Read();
 ```
+```cs
+int[] numbers = new int[7];
+for (int i = 0; i < 5; i++)
+{
+    numbers[i] = i;
+    Console.WriteLine(numbers[i]);
+}
+for (int j = 0; j < numbers.Length; j++)
+{
+    numbers[j] = j;
+    Console.WriteLine("Element {0} = {1}", j, numbers[j]);
+}
+int counter = 0;
+foreach (int k in numbers)
+{
+    Console.WriteLine("Element {0} = {1}", counter, k + counter);
+    counter++;
+}
+```

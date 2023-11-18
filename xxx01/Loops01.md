@@ -125,3 +125,10 @@ foreach (int k in numbers)
     counter++;
 }
 ```
+```cs
+string[] people = new string[] { "Ann", "Bob", "Cecilia", "Diana", "Elvis" };
+foreach (var person in people)
+{
+    Console.WriteLine("Hi " + person);
+}
+```

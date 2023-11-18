@@ -40,3 +40,31 @@ Console.WriteLine(array3D[1,2,0]);
 int dimensions = array3D.Rank;
 Console.WriteLine(dimensions);
 ```
+### Nested For Loops And 2D Arrays
+```cs
+int[,] matrix = new int[,]
+{
+    { 1,2,3 },
+    { 4,5,6 },
+    { 7,8,9 }
+};
+//outer for loop
+for  (int i = 0; i < matrix.GetLength(0); i++)
+{
+    //Console.Write(i + " ");
+    //inner for loop
+    for (int j = 0; j < matrix.GetLength(1); j++)
+    {
+        //Console.Write(matrix[i, j] + " ");
+        if (matrix[i, j] % 2 == 0 && false)
+        {
+            Console.Write(matrix[i, j] + " ");
+        }
+        if (i == j && true)
+        {
+            //print diagonal 
+            Console.Write(matrix[i, j] + " ");
+        }
+    }
+}
+```

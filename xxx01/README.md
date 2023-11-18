@@ -317,3 +317,53 @@ while (input != "-1")
 }
 Console.Read();
 ```
+### Members And Finalizers/Destructors
+```cs
+namespace exercise
+{
+    internal class Member
+    {
+        //member - private filed
+        private string _memberName;
+        private string _jobTitle;
+        private int _salary;
+        //member - public filed
+        public int age;
+        //member - property - exposes JobTitle safely - properties start with a capital letter
+        public string MemberName 
+        { 
+            get { return _memberName; }
+            set { _jobTitle = value; } 
+        }
+        //publi member method - can be caled from other classes
+        public void Introducing(bool isFriend)
+        {
+            if (isFriend)
+            {
+                SharingPrivateInfo();
+            }else
+            {
+                Console.WriteLine("Hi, my name is " + _memberName);
+            }
+        }
+        public void SharingPrivateInfo() 
+        {
+            Console.WriteLine("My salery is " + _salary);
+        }   
+        //member constractor
+        public Member()
+        {
+            age = 30;
+            _memberName = "Ann";
+            _jobTitle = "Developer";
+            _salary = 20000;
+        }
+        //member - finalizer - destructor
+        ~Member()
+        {
+            //cleanup statements
+            Console.WriteLine("Destruction of member object");
+        }
+    }
+}
+```

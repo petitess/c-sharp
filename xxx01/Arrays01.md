@@ -12,3 +12,34 @@ int[] gradesMath = { 2, 5, 3, 9 };
 //third way of initializing an array
 int[] gradesSports  = new int[] {8,9,6,11};
 ```
+### Multidemensional arrays
+```cs
+//declare 2D Array
+string[,] matrix;
+
+//declare 3D Array
+string[,,] threeD;
+
+//two dimentinal array
+int[,] array2D = new int[,]
+{
+    { 1,2,3 },
+    { 4,5,6 },
+    { 7,8,9 }
+};
+Console.WriteLine(array2D[2,0]);
+int[,,] array3D = new int[,,]
+{
+    {
+        { 1,2,3 },
+        { 4,5,6 },
+        { 7,8,9 }
+    },
+    {
+        { 10,11,12 },
+        { 13,14,15 },
+        { 16,17,18 }
+    }
+};
+Console.WriteLine(array3D[1,2,0]);
+```

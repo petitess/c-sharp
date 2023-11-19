@@ -68,3 +68,30 @@ for  (int i = 0; i < matrix.GetLength(0); i++)
     }
 }
 ```
+### Jagged Arrays
+```cs
+//declare jagged array
+int[][] jaggedArray = new int[3][];
+jaggedArray[0] = new int[5];
+jaggedArray[1] = new int[3];
+jaggedArray[2] = new int[2];
+jaggedArray[0] = new int[] {4,7,3,9,11 };
+jaggedArray[1] = new int[] { 3, 9, 5 };
+jaggedArray[2] = new int[] { 1, 2 };
+//declare jagged array
+int[][] jaggedArray2 = new int[][]
+{
+    new int[] {4,7,3,9,11 },
+    new int[] { 3, 9, 5 },
+    new int[] { 1, 2 }
+};
+//Console.WriteLine(jaggedArray2[0][2]);
+for (int i = 0; i < jaggedArray2.Length; i++)
+{
+    Console.WriteLine("Element: " + i);
+    for (int j = 0; j < jaggedArray2[i].Length; j++)
+    {
+        Console.WriteLine(jaggedArray2[i][j]);
+    }
+}
+```

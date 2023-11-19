@@ -31,4 +31,13 @@ foreach (object obj in myArray)
     }
 }
 Console.WriteLine(sum);
-//////
+//////Print a range of numbers
+ArrayList list = new ArrayList();
+list.AddRange((ICollection)Enumerable.Range(100, 71).ToList());
+
+foreach (int x in list)
+{
+    if (x % 2 == 0)
+        Console.Write(" {0} ", x);
+}
+Console.WriteLine("\nAmount " + list.Count);

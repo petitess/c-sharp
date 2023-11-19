@@ -1,3 +1,4 @@
+//V1
 namespace Application
 {
     class Program
@@ -21,6 +22,56 @@ namespace Application
             Student existingStudent = (Student)table[st1.Id];
             Console.WriteLine("ID:{0}, Name:{1},GPA:{2}", st1.Id, st1.Name, st1.GPA);
             //retrive all values from a Hashtable
+            foreach (Student student in table.Values)
+            {
+                Console.WriteLine("ID: " + student.Id);
+                Console.WriteLine("Name: " + student.Name);
+                Console.WriteLine("GPA: " + student.GPA);
+            }
+        }
+    }
+    internal class Student
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public float GPA { get; set; }
+        public Student(int id, string name, float GPA)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.GPA = GPA;
+        }
+    }
+}
+//V2
+namespace Application
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Hashtable table = new Hashtable();
+
+            Student[] students = new Student[6];
+            students[0] = new Student(1, "Maria", 98);
+            students[1] = new Student(2, "Maria", 76);
+            students[2] = new Student(3, "Maria", 82);
+            students[3] = new Student(4, "Maria", 77);
+            students[4] = new Student(5, "Maria", 55);
+            students[5] = new Student(1, "Maria", 55);
+            //Add objects to Hashtable
+            foreach (Student student in students)
+            {
+                if (!table.ContainsKey(student.Id))
+                { 
+                    table.Add(student.Id, student);
+                }
+                else 
+                {
+                    Console.WriteLine("Student already exists. ID: " + student.Id);
+                }
+            }
+
             foreach (Student student in table.Values)
             {
                 Console.WriteLine("ID: " + student.Id);

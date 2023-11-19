@@ -95,3 +95,20 @@ for (int i = 0; i < jaggedArray2.Length; i++)
     }
 }
 ```
+```cs
+string[][] people = new string[][]
+{
+    new string[] { "Ann", "Bob" },
+    new string[] {"Chris", "Daniel"},
+    new string[] {"Elvis", "Filippa"}
+};
+
+for (int i = 0;i < people.Length; i++)
+{
+    for (int j = 0;j < people[i].Length;j++)
+    {
+        Console.WriteLine(people[i][j]);
+    }
+}
+Console.WriteLine("Hi " + people[0][0] + ", my name is " + people[1][1]);
+```

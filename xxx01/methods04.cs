@@ -18,3 +18,16 @@ static void GetScore()
         Console.WriteLine("Try again");
     }
 }
+///Print lower number
+static int MinV2(params int[] numbers)
+{
+    int min = int.MaxValue;
+    foreach (int n in numbers)
+    {
+        if (n < min)
+        {
+            min = n;
+        }
+    }
+        return min;
+}

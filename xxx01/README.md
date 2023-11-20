@@ -294,13 +294,52 @@ foreach (int number in numbers)
 {
     Console.Write(" {0} ", number);
     nr.Push(number);
-    
 }
 //display numbers in reversed order
 Console.WriteLine("");
 while (nr.Count > 0)
 {
     int pop = nr.Pop();
+    Console.Write(" {0} ", pop);
+}
+```
+### Queue
+```cs
+//defining a new queue
+Queue<int> queue = new Queue<int>();
+//Add value to queue
+queue.Enqueue(22);
+queue.Enqueue(66);
+queue.Enqueue(73);
+//remove an item
+if (queue.Count > 0)
+{
+    int? popped = queue.Dequeue();
+    Console.WriteLine("Popped item: " + popped);
+}
+//return the element at the top without removing it
+Console.WriteLine("Top value: " + queue.Peek());
+while (queue.Count > 0)
+{
+    queue.Dequeue();
+}
+if (queue.Count > 0)
+    Console.WriteLine("Top value: " + queue.Peek());
+else 
+    Console.WriteLine("Queue empty");
+//store int in a Queue
+int[] numbers = new int[] { 5, 8, 3, 86, 23, 86, 12 };
+Queue<int> nr = new Queue<int>();
+foreach (int number in numbers)
+{
+    Console.Write(" {0} ", number);
+    nr.Enqueue(number);
+}
+//display numbers in reversed order
+Console.WriteLine("");
+while (nr.Count > 0)
+{
+    int pop = nr.Dequeue();
     Console.Write(" {0} ", pop);
 }
 ```

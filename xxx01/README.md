@@ -263,3 +263,44 @@ namespace exercise
     }
 }
 ```
+### Stack
+```cs
+//defining a new stack
+Stack<int> stack = new Stack<int>();
+//Add value to stack
+stack.Push(22);
+stack.Push(66);
+stack.Push(73);
+//remove an item
+if (stack.Count > 0)
+{
+    int? popped = stack.Pop();
+    Console.WriteLine("Popped item: " + popped);
+}
+//return the element at the top without removing it
+Console.WriteLine("Top value: " + stack.Peek());
+while (stack.Count > 0)
+{
+    stack.Pop();
+}
+if (stack.Count > 0)
+    Console.WriteLine("Top value: " + stack.Peek());
+else 
+    Console.WriteLine("Stack empty");
+//store int in a Stack
+int[] numbers = new int[] { 5, 8, 3, 86, 23, 86, 12 };
+Stack<int> nr = new Stack<int>();
+foreach (int number in numbers)
+{
+    Console.Write(" {0} ", number);
+    nr.Push(number);
+    
+}
+//display numbers in reversed order
+Console.WriteLine("");
+while (nr.Count > 0)
+{
+    int pop = nr.Pop();
+    Console.Write(" {0} ", pop);
+}
+```

@@ -89,3 +89,32 @@ double GetNr(int[] ints)
     return totalValue;
 }
 ```
+7. Print a range of numbers using Enumerable
+```cs
+static List<int> Solution() 
+{
+    int[] list;
+    list = Enumerable.Range(100, 71).ToArray();
+    foreach (int i in list)
+    {
+        Console.WriteLine(i);
+    }
+    return list.ToList();
+}
+```
+9. Add a range of numbers to a List using for loop
+```cs
+static List<int> Solution2()
+{
+    List<int> myList = new List<int>();
+    for (int i = 100; i <= 170; i++) 
+    {
+        if (i % 2 == 0) 
+        {
+            myList.Add(i);
+            Console.WriteLine(i);
+        }
+    }
+    return myList;
+}
+```

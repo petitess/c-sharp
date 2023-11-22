@@ -1,3 +1,4 @@
+### Inheritance
 Create a main class with the Main Method, then a base class Employee with the properties Name, FirstName, Salary, and the methods Work() and Pause().
 
 Create a deriving class Boss with the property CompanyCar and the method Lead().  

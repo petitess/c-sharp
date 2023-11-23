@@ -1,7 +1,7 @@
 IEnumerable Interface is recommended to be used when your collection represents a massive databese table.
 
 Types of IEnumerable:
-1. IEnumerable <T> for generic collection
+1. IEnumerable `<T>` for generic collection > This one should be used
 2. IEnumerable for non generic collection
 
 ### Program.cs

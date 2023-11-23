@@ -33,3 +33,21 @@ static IEnumerable<int> GetCollection(int option)
     }
 }
 ```
+### Example 2
+```cs
+List<int> numberList = new List<int>() {6,23,8,4,2 };
+CollectionSum(numberList);
+
+int[] numberArray = new int[] {8,4,2,4,11,9};
+CollectionSum(numberArray);
+
+static void CollectionSum(IEnumerable<int> anyCollection)
+{
+    int sum = 0;
+    foreach (var item in anyCollection)
+    {
+        sum += item;
+    }
+    Console.WriteLine("Sum is {0}", sum);
+}
+```

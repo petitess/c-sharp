@@ -13,16 +13,17 @@ Create a Task mathod with timer function for Trainees class
 ### Program.cs
 ```cs
 Employee employee1 = new Employee("John", 200000);
-Console.WriteLine("This is {0} and he makes ${1} a year", employee1.Name, employee1.Salary);
+Console.WriteLine("This is {0} and he makes ${1} a year", employee1.FirstName, employee1.Salary);
 
 Boss boss = new Boss("Michael", 500000, true);
 if (boss.CompanyCar)
-    Console.WriteLine("CEO of the company is {0} and he uses company car", boss.Name);
+    Console.WriteLine("CEO of the company is {0} and he uses company car", boss.FirstName);
 else
     Console.WriteLine("CEO of the company is {0}", boss.Name);
 
 Trainees trainees = new Trainees("Matilda", "10AM - 2PM");
-Console.WriteLine("{0} is a trainee and her working hours are: {1}", trainees.Name, trainees.WorkingHours);
+Console.WriteLine("{0} is a trainee and her working hours are: {1}", trainees.FirstName, trainees.WorkingHours);
+Console.WriteLine("{0}s salary is ${1} a month", trainees.FirstName, trainees.Salary);
 trainees.Task();
 Console.ReadKey();
 ```
@@ -36,18 +37,19 @@ namespace exercise01
         public string FirstName { get; set; }
         public int Salary { get; set; }
         public Employee() { }
-        public Employee(string name, int salary) 
+        public Employee(string firstName, int salary) 
         {
-            Name = name;
+            FirstName = firstName;
             Salary = salary;
         }
-        public void Work()
+        //if you want to override a method use: public virtual
+        public virtual void Work() 
         {
-            Console.WriteLine("Working hours: 9AM - 5PM ");
+            Console.WriteLine("I'm working");
         }
-        public void Pause() 
+        static void Pause()
         {
-            Console.WriteLine("Break at 12");
+            Console.WriteLine("I'm having a break");
         }
     }
 }
@@ -60,13 +62,13 @@ namespace exercise01
     {
         public bool CompanyCar {  get; set; }
         public Boss() { }
-        public Boss(string name, int salary, bool companyCar):base(name, salary)
+        public Boss(string firstName, int salary, bool companyCar):base(firstName, salary) 
         {
             CompanyCar = companyCar;
         }
-        public void Lead() 
+        static void Lead()
         {
-            Console.WriteLine("I'm leading");
+            Console.WriteLine("I'm the boss");
         }
     }
 }
@@ -81,21 +83,21 @@ namespace exercise01
         protected bool taskStarted = true;
         protected int currDuration = 0;
         public string WorkingHours {  get; set; }
-        protected string SchoolHours { get; set; }
+        public string SchoolHours { get; set; }
         public Trainees() { }
-        public Trainees(string name, string workingHours) 
+        public Trainees(string firstName, string workingHours):base(firstName, salary:1000)
         {
-            Name = name;
             WorkingHours = workingHours;
         }
-        public void Work() 
+        public override void Work()
         {
-            Console.WriteLine("Working hours: {0}", WorkingHours);
+            Console.WriteLine("Working hours: " + WorkingHours);
         }
-        public void Task()
+        //Timer function
+        public void Task() 
         {
-            if (taskStarted)
-            {
+             if (taskStarted)
+             {
                 Console.WriteLine("Press any key to start a task for {0}", Name);
                 Console.ReadLine();
                 taskStarted = true;
@@ -105,7 +107,7 @@ namespace exercise01
         }
         private void TimerCallback(Object o)
         {
-            if (currDuration < 15)
+            if (currDuration < 60)
             {
                 currDuration++;
                 Console.WriteLine("{0} seconds passed", currDuration);

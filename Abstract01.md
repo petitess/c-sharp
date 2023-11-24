@@ -8,8 +8,21 @@ Shape[] shapes =
 
 foreach (Shape shape in shapes)
 {
+    Console.Write("\n");
     shape.GetInfo();
     Console.WriteLine("Volume: " + shape.Volume()); ;
+    Cube iceCube = shape as Cube;
+    if ( iceCube == null )
+    {
+        Console.WriteLine("This shape is not cube");
+    }
+    if (shape is Cube)
+    {
+        Console.WriteLine("This shape is a cube");
+    }
+    object cube1 = new Cube(7);
+    Cube cube2 = (Cube)cube1;
+    Console.WriteLine("{0} has a volume if {1}", cube2.Name, cube2.Volume());
 }
 ```
 ### Shape.cs

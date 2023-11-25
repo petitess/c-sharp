@@ -20,11 +20,8 @@ int xToInt;
 bool success = int.TryParse(x, out xToInt);
 if (success && xToInt >= 0 && xToInt <= 180)
 {
-    //Math.Cos(xToInt);
     Console.WriteLine("Cos = " + Math.Cos(xToInt));
-    //Math.Sin(xToInt);
     Console.WriteLine("Sin = " + Math.Sin(xToInt));
-    //Math.Tan(xToInt);
     Console.WriteLine("Tg = " + Math.Tan(xToInt));
 }
 else

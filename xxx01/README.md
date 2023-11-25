@@ -343,3 +343,16 @@ while (nr.Count > 0)
     Console.Write(" {0} ", pop);
 }
 ```
+### Regular expressions
+```cs
+string pattern = @"\d";
+Regex regex = new Regex(pattern);
+string text = "Hi there, my number is 1234567";
+MatchCollection match = regex.Matches(text);
+Console.WriteLine("Found {0} objects", match.Count);
+foreach (Match m in match)
+{
+    GroupCollection group = m.Groups;
+    Console.WriteLine("{0} found at {1}", group[0].Value, group[0].Index);
+}
+```

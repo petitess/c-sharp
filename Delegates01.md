@@ -25,6 +25,20 @@ namespace exercise01
             DisplayPeople("Young adults", people, filter);
             //Anonymous method 2
             DisplayPeople("All", people, delegate (Person p) { return true;  });
+            //Anonymous method 2 with lambda expression
+            string searchKeyword = "a";
+            DisplayPeople("Name constains " + searchKeyword , people, p => 
+            {
+                if (p.Name.Contains(searchKeyword))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
+            DisplayPeople("Peope who are 23 ", people, p => p.Age == 23);
         }
         static void DisplayPeople(string title, List<Person> person, FilterDelegate filter)
         {

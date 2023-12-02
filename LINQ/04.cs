@@ -17,7 +17,6 @@ namespace wpf02
             //InsertStudentLectureAssociations();
             GetUniversity();
         }
-
         public void InsertUniversities()
         {
             dataContext.ExecuteCommand("delete from University");

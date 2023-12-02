@@ -82,5 +82,11 @@ namespace wpf02
             universities.Add(university);
             MainDataGrid.ItemsSource = universities;
         }
+        public void GetLectures()
+        {
+            Student tom = dataContext.Students.First(s => s.Name.Equals("Tom"));
+            var letures = from l in tom.StudentLectures select l.Lecture;
+            MainDataGrid.ItemsSource = letures;
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace exercise01
             um.MaleStudents();
             um.SortStudentsByAge();
             um.AllStudentsFromBeijingTech();
+            um.StudentAndUniversityNameCollection();
             um.GetStudents();
             //Sort itegers v1
             int[] ints = { 12, 54, 2, 76, 21 };
@@ -107,7 +108,18 @@ namespace exercise01
                 }
             }else { Console.WriteLine("Invalid ID"); }
         }
-
+        public void StudentAndUniversityNameCollection()
+        {
+            var newCollection = from student in students
+                                join university in universities on student.UniversityId equals university.Id
+                                orderby student.Name
+                                select new { StudentName = student.Name, UniversityName = university.Name };
+            Console.WriteLine("New Collection: ");
+            foreach (var col in newCollection)
+            {
+                Console.WriteLine("Studen {0} from university {1}", col.StudentName, col.UniversityName);
+            }
+        }
     }
 
     class University

@@ -29,11 +29,12 @@ namespace json02
                     Console.WriteLine(location);
                     //Get info v2
                     MyAzureProp myRg = new MyAzureProp();
+                    Tags myTag = new Tags();
                     myRg.id = azure.id;
                     myRg.location = azure.location;
                     myRg.name = azure.name;
-                    Console.WriteLine("Name: {0}, Location: {1}, Id: {2}", myRg.name, myRg.location, myRg.id);
-
+                    myTag.SYSTEM = azure.tags.SYSTEM;
+                    Console.WriteLine("Name: {0}, Location: {1}, Tags: {2}", myRg.name, myRg.location, myTag.SYSTEM);
                 }
                 Console.WriteLine(httpResponse.StatusCode);
             }

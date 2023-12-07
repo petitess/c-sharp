@@ -46,16 +46,21 @@ namespace json02
                     azure.tags.SYSTEM = "EKO";
                     dynamic? jsonObj = JsonConvert.DeserializeObject(result);
                     jsonObj["tags"]["SYSTEM"] = "EKO";
-                    //Console.WriteLine("New value: " + jsonObj);
+                    Console.WriteLine("New value: " + jsonObj);
 
-                    string jsonY = result.Replace("SONY", "EKO");
-                    Console.WriteLine("Replace: \n" + jsonY);
+                    /*string jsonY = result.Replace("SONY", "EKO");
+                    Console.WriteLine("Replace: \n" + jsonY);*/
 
                     /////PATCH
                     string myJson = @"
                     {
+                        ""id"": ""/subscriptions/2d9f44ea-e3df-4ea1-b956-8c7a43b119a0/resourceGroups/rg-owner"",
+                        ""name"": ""rg-owner"", 
+                        ""type"": ""Microsoft.Resources/resourceGroups"",
+                        ""location"": ""swedencentral"",
                         ""tags"": {
-                            ""SYSTEM"" : ""BOOM""
+                            ""SYSTEM"" : ""ABCD"",
+                            ""ENV"" :""DEV""
                         }
                     }
                     ";
@@ -79,7 +84,7 @@ namespace json02
 
                     Stream dataStreamx = request.GetRequestStream();
                     dataStreamx.Write(byteArrayx, 0, byteArrayx.Length);
-                    //dataStreamx.Close();
+                    dataStreamx.Close();
 
                     try
                     {

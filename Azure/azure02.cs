@@ -23,8 +23,7 @@ namespace azure01
 
             //WORKS
             var credentials = new TokenCloudCredentials(subscriptionId, token.Token);
-
-            Console.WriteLine(credentials);
+            Console.WriteLine(credentials.GetType);
 
             ArmClient client = new ArmClient(new DefaultAzureCredential());
             SubscriptionResource subscription = client.GetDefaultSubscription();
@@ -34,7 +33,7 @@ namespace azure01
             Console.WriteLine(resourceGroup.Id);
 
             ResourceGroupResource resourceGroupX = await subscription.GetResourceGroupAsync(resourceGroupName);
-            resourceGroup = await resourceGroup.AddTagAsync("Group", "A");
+            resourceGroup = await resourceGroup.AddTagAsync("Group", "C");
 
         }
     }

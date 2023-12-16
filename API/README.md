@@ -6,6 +6,7 @@ automapper02 | map JSON data - Entity Framework
 configfile01 |configuration file to connect to a SQL server
 dapper01 | endpoints to modify database
 dapper02 | token-based authentication
+dapper03 | Stored Procedures
 entityframework01 | endpoints to modify database
 entityframework02 | endpoints to modify database - UserRepository
 json01 | insert JSON data into SQL server

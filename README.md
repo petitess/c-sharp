@@ -43,6 +43,7 @@ git rebase
 git reset
 git revert
 git fetch
+Add-migration InitialCreate
 ```
 | Operators | Category or name |
 | --------- | ---------------- |

@@ -44,6 +44,7 @@ git reset
 git revert
 git fetch
 Add-migration InitialCreate
+Update-database
 ```
 | Operators | Category or name |
 | --------- | ---------------- |

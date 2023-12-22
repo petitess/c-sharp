@@ -31,5 +31,5 @@ sql03 | insert data into a database, Users, UserJobInfo, UserSalary
     - Create inheritance
     - Apply ApiController and Route
     - Create a constractor
-    - Assign field for repository and Mapper
+    - Assign field for IRepository and Mapper
     - Create HTTP requests

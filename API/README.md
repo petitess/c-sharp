@@ -28,8 +28,8 @@ sql03 | insert data into a database, Users, UserJobInfo, UserSalary
     - Build Database Calls
 4. Create DTO 
 5. Create Controller
-    - Create inheritance
     - Apply ApiController and Route
+    - Create inheritance
     - Create a constractor
     - Assign field for IRepository and Mapper
     - Create HTTP requests

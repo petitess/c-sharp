@@ -33,3 +33,4 @@ sql03 | insert data into a database, Users, UserJobInfo, UserSalary
     - Create a constractor
     - Assign field for IRepository and Mapper
     - Create HTTP requests
+6. Create Mapping Profiles

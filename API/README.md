@@ -34,3 +34,4 @@ sql03 | insert data into a database, Users, UserJobInfo, UserSalary
     - Assign field for IRepository and Mapper
     - Create HTTP requests
 6. Create Mapping Profiles
+7. Configure dependency injection

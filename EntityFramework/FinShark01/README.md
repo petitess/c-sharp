@@ -25,5 +25,7 @@
         - Create private field
         - Create HTTP GET request
         - Add Controller to program.cs
-#### 4. Create DTO
-
+#### 4. Create DTOs
+#### 5. Mapper
+    - Create mappers: StockMappers
+    - Update Controller

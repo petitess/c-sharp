@@ -13,14 +13,14 @@ namespace WeatherStatus
     {
 
         [FunctionName("SendWeatherToAzureSql")]//"0 5,11,14 * * *"
-        public async Task Run([TimerTrigger("* * * * *")] TimerInfo myTimer, ILogger log)
+        public async Task Run([TimerTrigger("0 5,11,14 * * *")] TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
             DateTime time = DateTime.Now;
             string timeStamp = time.AddHours(1).ToString("dd/MM/yyyy HH:mm");
             //URL to weatherstack
-            string apiKey = "xxxxx";
+            string apiKey = "52a521cb06b83e1415cee33de96d30fb";
 
             string cityGbg = "Gothenburg";
             string urlGbg = $"http://api.weatherstack.com/current?access_key={apiKey}&query={cityGbg}";
@@ -32,9 +32,9 @@ namespace WeatherStatus
 
             //Azure SQL
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "sql-xxx-prod-01.database.windows.net";
+            builder.DataSource = "sql-trust-prod-01.database.windows.net";
             builder.UserID = "azadmin";
-            builder.Password = "xxx";
+            builder.Password = "12345678.abc";
             builder.InitialCatalog = "sqldb-weather-01";
 
             try
@@ -83,7 +83,7 @@ namespace WeatherStatus
                                 '{cityGbg}',
                                 {temperatureGbg},
                                 '{descriptionGbg}',
-                                '{timeGbg}',
+                                '{timeStamp}',
                                 '{timezoneGbg}'
                                 )";
                     String sqlWwa = @$"USE [sqldb-weather-01]
@@ -99,7 +99,7 @@ namespace WeatherStatus
                                 '{cityWwa}',
                                 {temperatureWwa},
                                 '{descriptionWwa}',
-                                '{timeWwa}',
+                                '{timeStamp}',
                                 '{timezoneWwa}'
                                 )";
 
@@ -116,7 +116,6 @@ namespace WeatherStatus
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 ```cs
+DateTime.Now.ToString("dd/MM/yyyy HH:mm");
 DateTime dateTime = new DateTime(2018, 5, 20);
 Console.WriteLine(dateTime);
 Console.WriteLine(DateTime.Today);

@@ -36,3 +36,7 @@ DayOfWeek GetFirstDayofYear2(int year)
     return new DateTime(year, 1, 1).DayOfWeek;
 }
 ```
+```cs
+DateTime time = DateTime.Now;
+string timeStamp = time.AddHours(1).ToString("dd/MM/yyyy HH:mm");
+```

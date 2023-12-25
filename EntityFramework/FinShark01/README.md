@@ -28,7 +28,10 @@
 #### 4. Create DTO for GET
 #### 5. Mapper for GET
     - Create mappers: StockMappers
-    - Update Controller
+    - Update HTTP Get request
 #### 6. Create DTO for POST
 #### 7. Mapper for POST
     - Create HTTP POST request
+#### 8. Create DTO for PUT
+    - Create HTTP PUT request
+    - Create HTTP DELETE request

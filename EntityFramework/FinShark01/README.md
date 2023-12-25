@@ -18,4 +18,12 @@
         - dotnet ef migrations add init
         - dotnet ef database update
 #### 3. Controllers
-    - 
+    - Create controllers
+        - Inheritance ControllerBase
+        - Create Route and ApiContoller
+        - Create a constractor with ApplicationDbContext
+        - Create private field
+        - Create HTTP GET request
+        - Add Controller to program.cs
+#### 4. Create DTO
+

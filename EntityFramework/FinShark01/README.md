@@ -25,7 +25,10 @@
         - Create private field
         - Create HTTP GET request
         - Add Controller to program.cs
-#### 4. Create DTOs
-#### 5. Mapper
+#### 4. Create DTO for GET
+#### 5. Mapper for GET
     - Create mappers: StockMappers
     - Update Controller
+#### 6. Create DTO for POST
+#### 7. Mapper for POST
+    - Create HTTP POST request

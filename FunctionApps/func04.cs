@@ -20,7 +20,7 @@ namespace WeatherStatus
             DateTime time = DateTime.Now;
             string timeStamp = time.AddHours(1).ToString("dd/MM/yyyy HH:mm");
             //URL to weatherstack
-            string apiKey = "52a521cb06b83e1415cee33de96d30fb";
+            string apiKey = "xxx";
 
             string cityGbg = "Gothenburg";
             string urlGbg = $"http://api.weatherstack.com/current?access_key={apiKey}&query={cityGbg}";
@@ -32,9 +32,9 @@ namespace WeatherStatus
 
             //Azure SQL
             SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-            builder.DataSource = "sql-trust-prod-01.database.windows.net";
+            builder.DataSource = "sql-xxx-prod-01.database.windows.net";
             builder.UserID = "azadmin";
-            builder.Password = "12345678.abc";
+            builder.Password = "xxx";
             builder.InitialCatalog = "sqldb-weather-01";
 
             try

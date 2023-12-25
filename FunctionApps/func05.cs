@@ -95,21 +95,21 @@ namespace WeatherStatus
                                 )";
 
                 String sqlWwa = @$"USE [sqldb-weather-01]
-                                                    INSERT WeatherInfo 
-                                                (
-                                                    [City],
-                                                    [Temperature],
-                                                    [Description],
-                                                    [Localtime],
-                                                    [TimeZone]
-                                                ) VALUES
-                                                (
-                                                '{cityWwa}',
-                                                {temperatureWwa},
-                                                '{descriptionWwa}',
-                                                '{timeStamp}',
-                                                '{timezoneWwa}'
-                                                )";
+                                        INSERT WeatherInfo 
+                                    (
+                                        [City],
+                                        [Temperature],
+                                        [Description],
+                                        [Localtime],
+                                        [TimeZone]
+                                    ) VALUES
+                                    (
+                                    '{cityWwa}',
+                                    {temperatureWwa},
+                                    '{descriptionWwa}',
+                                    '{timeStamp}',
+                                    '{timezoneWwa}'
+                                    )";
 
                 using (SqlCommand command = new SqlCommand(sqlGbg + sqlWwa, connection))
                 {

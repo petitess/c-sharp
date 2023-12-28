@@ -1,1 +1,39 @@
-
+#### 1. Create database with 2 tables: "Stocks" and "Comments"
+#### 2. Models
+    - Create models with properties according to table datatypes
+        - Stocks
+        - Comment
+#### 3. Entity Framework
+    - Install:
+        - Microsoft.EntityFrameworkCore.Tools
+        - Microsoft.EntityFrameworkCore.SqlServer
+        - Microsoft.EntityFrameworkCore.Design
+        - Microsoft.AspNetCore.Mvc.NewtonsoftJson
+        - Newtonsoft.Json
+    - Create ApplicationDbContext.cs
+        - Inheritance DbContext
+        - Create constractor with (DbContextOptions): base()
+        - Create DbSet to add tables
+        - Create connection to database
+        - Place connection string in appsetings.json
+        - AddDbContext in Program.cs
+        - ReferenceLoopHandling.Ignore in Program.cs
+        
+#### 4. Controllers
+    - Create controllers
+        - Inheritance ControllerBase
+        - Create Route and ApiContoller
+        - Create a constractor with ApplicationDbContext
+        - Create private field
+        - Create HTTP GET request
+        - Add Controller to program.cs
+#### 5. Create DTO for GET
+#### 6. Mapper for GET
+    - Create mappers: StockMappers
+    - Update HTTP Get request
+#### 7. Create DTO for POST
+#### 7. Mapper for POST
+    - Create HTTP POST request
+#### 8. Create DTO for PUT
+    - Create HTTP PUT request
+    - Create HTTP DELETE request

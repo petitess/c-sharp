@@ -18,6 +18,7 @@
         - Place connection string in appsetings.json
         - AddDbContext in Program.cs
         - ReferenceLoopHandling.Ignore in Program.cs
+        - In .csproj set this: <InvariantGlobalization>false</InvariantGlobalization>
 #### 4. Interface
     - Create Interfaces 
         - Create methhods

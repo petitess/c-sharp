@@ -26,11 +26,24 @@
         - Implement interface
     - Create constractor with ApplicationDbContext
     - Build functions for methods
-    - xxx
 
-#### 5. Helper
+#### 6. DTO
+    - Create DTO for GET 
+#### 7. Controllers
+    - Create controllers
+        - Inheritance ControllerBase
+        - Create Route and ApiContoller
+        - Create a constractor with ApplicationDbContext
+        - Create private field
+        - Create HTTP GET request
+        - Add Controller to program.cs
+
+
+
+
+<!--#### 5. Helper
     - Create a helper method for Stock
-    - Create nre method in interface
+    - Create nre method in interface-->
 #### 4. Controllers
     - Create controllers
         - Inheritance ControllerBase

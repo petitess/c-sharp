@@ -38,9 +38,7 @@
         - Create HTTP GET request
         - Add Controller to program.cs
 
-
-
-
+###########
 <!--#### 5. Helper
     - Create a helper method for Stock
     - Create nre method in interface-->

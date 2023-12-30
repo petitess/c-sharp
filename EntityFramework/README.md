@@ -29,13 +29,21 @@
 
 #### 6. DTO
     - Create DTO for GET 
-#### 7. Controllers
+#### 7. Mappers for GET
+    - Create mapper StockMappers
+        - Create Dtos CreateStockRequestDto, 
+        - Create methods ToStockDto, ToStockFromCreateDto
+    -  Create mapper CommentMappers
+        - Create Dtos CreateCommentDto, UpdateCommentRequestDto
+        - Create methods ToCommentDto, ToCommentFromCreate, ToCommentFromUpdate
+#### 8. Controllers
     - Create controllers
         - Inheritance ControllerBase
         - Create Route and ApiContoller
-        - Create a constractor with ApplicationDbContext
+        - Create a constractor with Interface
         - Create private field
         - Create HTTP GET request
+            - Task<IActionResult>
         - Add Controller to program.cs
 
 ###########

@@ -35,3 +35,21 @@
 #### 8. Create DTO for PUT
     - Create HTTP PUT request
     - Create HTTP DELETE request
+
+#### 9x. Identity
+Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+Microsoft.Extensions.Identity.Core
+
+Microsoft.AspNetCore.Authentication.JwtBearer
+
+IDENITY
+Add model for user
+- Inheritance : IdentityUser 
+- Update inheritance for ApplicationDbContext.cs to : IdentityDbContext<AppUser>
+- In program.cs AddIdentity<AppUser, IdentityRole>
+- In program.cs AddAuthentication
+- in appsettings.json add JWT config
+run
+dotnet ef migrations add Identity
+dotnet ef database update

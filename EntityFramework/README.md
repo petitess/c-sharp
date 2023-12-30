@@ -45,10 +45,8 @@
         - Create private field
         - Create HTTP GET request
             - Task<IActionResult>
-        - Add Controller to program.cs
-```
-gh
-```
+        - In program.cs builder.Services.AddScoped<IStockRepository, StockRepository>();
+
 
 ###########
 <!--#### 5. Helper

@@ -18,15 +18,19 @@
         - Place connection string in appsetings.json
         - AddDbContext in Program.cs
         - ReferenceLoopHandling.Ignore in Program.cs
-#### 5. Interface
+#### 4. Interface
     - Create Interfaces 
         - Create methhods
-#### 6. Repositort
+#### 5. Repositort
     - Create repositories with Inheritance
         - Implement interface
     - Create constractor with ApplicationDbContext
     - Build functions for methods
     - xxx
+
+#### 5. Helper
+    - Create a helper method for Stock
+    - Create nre method in interface
 #### 4. Controllers
     - Create controllers
         - Inheritance ControllerBase

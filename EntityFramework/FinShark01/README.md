@@ -37,6 +37,7 @@
     - Create HTTP DELETE request
 
 #### 9x. Identity
+
 Microsoft.AspNetCore.Identity.EntityFrameworkCore
 
 Microsoft.Extensions.Identity.Core
@@ -53,3 +54,10 @@ Add model for user
 run
 dotnet ef migrations add Identity
 dotnet ef database update
+
+#### 10. Register
+    - Create RegisterDto
+    - Create AccountController
+        - Inheritance ControllerBase
+        - Create Route and ApiContoller
+        - Create a constractor with UserManager<AppUser>

@@ -13,6 +13,7 @@ Ctrl + K, Ctrl + C | Comment section
 Ctrl + K, Ctrl + U | Uncomment section
 Ctrl + Shift + * (SV) | Comment/Uncomment section
 Ctrl + Shift + Left/Right Arrow | select text
+Ctrl + Left/Right Arrow | move cursor fast
 F12 | sends you to a constractor
 Ctrl + - | sends you back to previous file (F12) 
 Ctrl + Space | IntelliSense 

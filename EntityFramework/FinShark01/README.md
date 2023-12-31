@@ -61,3 +61,6 @@ dotnet ef database update
         - Inheritance ControllerBase
         - Create Route and ApiContoller
         - Create a constractor with UserManager<AppUser>
+    - In ApplicationDbContext override OnModelCreating(ModelBuilder builder)
+        - List<IdentityRole> roles = new List<IdentityRole> {};
+    

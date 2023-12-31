@@ -57,10 +57,15 @@ dotnet ef database update
 
 #### 10. Register
     - Create RegisterDto
+    - In ApplicationDbContext override OnModelCreating(ModelBuilder builder)
+        - List<IdentityRole> roles = new List<IdentityRole> {};
     - Create AccountController
         - Inheritance ControllerBase
         - Create Route and ApiContoller
         - Create a constractor with UserManager<AppUser>
-    - In ApplicationDbContext override OnModelCreating(ModelBuilder builder)
-        - List<IdentityRole> roles = new List<IdentityRole> {};
-    
+        - Create private field
+        - Create HTTP GET request
+    - run
+        - dotnet ef migrations add SeedRole
+        - dotnet ef database update
+

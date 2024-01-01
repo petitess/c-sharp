@@ -1,4 +1,5 @@
 ##### dotnet tool install --global dotnet-ef
+##### dotnet tool update --global dotnet-ef
 #### 1. Create database with 2 tables: "Stocks" and "Comments"
 #### 2. Models
     - Create models with properties according to table datatypes

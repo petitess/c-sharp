@@ -91,4 +91,17 @@ foreach (var teamGF in groupedTeamsW)
         Console.WriteLine("21: " + t.Name);
     }
 }
+//Order by
+var orderedTeams = await context.Teams
+    .OrderBy(x => x.Name)
+    .ToListAsync();
+foreach (var teamO in orderedTeams)
+Console.WriteLine("22: " + teamO.Name);
+//Getting record with maximum value
+var orderedTeamsMax = await context.Teams
+    .OrderByDescending(x => x.TeamId)
+    .FirstOrDefaultAsync();
+Console.WriteLine("23: " + orderedTeamsMax.Name);
+//Getting record with maximum value
+var maxBy = context.Teams.MaxBy(x => x.Name); //Not working
 ```

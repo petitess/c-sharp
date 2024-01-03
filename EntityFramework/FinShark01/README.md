@@ -65,4 +65,14 @@
     - run
         - dotnet ef migrations add SeedRole
         - dotnet ef database update
-
+#### 11. Token Service
+    - Create ITokenService
+        - Create method CreateToken(AppUser user)
+    - Create TokenService
+        - Inherit : ITokenSevice
+        - Create contractor
+        - Implement interface
+    - In Program.cs add dependency injection builder.Services.AddScoped<ITokenService, TokenService>();
+    - Create NewUserDto
+    - Import TokenService to AccountController
+    

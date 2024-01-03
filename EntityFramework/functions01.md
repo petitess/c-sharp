@@ -125,3 +125,37 @@ var teamNames = await context.Teams.Select(x => new { x.Name, x.CreatedDate } ).
 foreach (var team in teamNames)
     Console.WriteLine("25: " + team.Name);
 ```
+```cs
+//No Tracking - not saving in memory - can be added to DbContextOptionBuilder
+//.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+var teamsTracking = context.Teams.AsNoTracking().ToList();
+foreach (var team in teamsTracking)
+    Console.WriteLine("26: " + team.Name);
+//List Types
+Console.WriteLine("Enter '1' for Team with Id '1' or '2' for teams that contains 'F.C.'");
+var option = Convert.ToInt32(Console.ReadLine());
+List<Team> teamsAsList = new List<Team>();
+if (option == 1)
+{
+    teamsAsList = teamsAsList.Where(x => x.TeamId == 1).ToList();
+}
+else if (option == 2)
+{
+    teamsAsList = teamsAsList.Where(x => x.Name.Contains("F.C.")).ToList();
+}
+foreach (var team in teamsAsList)
+    Console.WriteLine("27: " + team.Name);
+//IQueryables
+var teamsAsQuery = context.Teams.AsQueryable();
+if (option == 1)
+{
+    teamsAsQuery = teamsAsQuery.Where(x => x.TeamId == 1);
+}
+else if (option == 2)
+{
+    teamsAsQuery = teamsAsQuery.Where(x => x.Name.Contains("F.C."));
+}
+teamsAsList = await teamsAsQuery.ToListAsync();
+foreach (var team in teamsAsQuery)
+    Console.WriteLine("28: " + team.Name);
+```

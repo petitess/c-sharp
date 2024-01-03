@@ -120,7 +120,7 @@ while (next)
     if (!next) break;
     page += 1;
 }
-//Select
+//Select - projection
 var teamNames = await context.Teams.Select(x => new { x.Name, x.CreatedDate } ).ToListAsync();
 foreach (var team in teamNames)
     Console.WriteLine("25: " + team.Name);

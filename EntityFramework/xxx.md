@@ -72,3 +72,23 @@ Console.WriteLine("16: " + averageTeams);
 var sumTeams = await context.Teams.SumAsync(x => x.TeamId);
 Console.WriteLine("17: " + sumTeams);
 ```
+#### Grouping and Aggregating
+```cs
+//Group by
+var groupedTeams = context.Teams.GroupBy(x => new { x.CreatedDate.Date, x.Name });
+foreach (var teamG in groupedTeams)
+Console.WriteLine("18: " + teamG.Key);
+//Group by + filter 
+var groupedTeamsW = context.Teams
+    .Where(x => x.Name.Contains("Water"))
+    .GroupBy(x => new { x.CreatedDate.Date, x.Name });
+foreach (var teamGF in groupedTeamsW)
+{
+    Console.WriteLine("19: " + teamGF.Key);
+    Console.WriteLine("20: " + teamGF.Sum(x => x.TeamId));
+    foreach (var t in teamGF)
+    {
+        Console.WriteLine("21: " + t.Name);
+    }
+}
+```

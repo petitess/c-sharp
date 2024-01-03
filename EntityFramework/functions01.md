@@ -105,3 +105,23 @@ Console.WriteLine("23: " + orderedTeamsMax.Name);
 //Getting record with maximum value
 var maxBy = context.Teams.MaxBy(x => x.Name); //Not working
 ```
+```cs
+//Skip and Take
+var recordCount = 3;
+var page = 0;
+var next = true;
+while (next)
+{
+    var teamsSkip = await context.Teams.Skip(page * recordCount).Take(recordCount).ToListAsync();
+    foreach (var teamO in teamsSkip)
+    { Console.WriteLine("24: " + teamO.Name); }
+    Console.WriteLine("Enter 'true' for the next set of records, 'false' to exit");
+    next = Convert.ToBoolean(Console.ReadLine());
+    if (!next) break;
+    page += 1;
+}
+//Select
+var teamNames = await context.Teams.Select(x => new { x.Name, x.CreatedDate } ).ToListAsync();
+foreach (var team in teamNames)
+    Console.WriteLine("25: " + team.Name);
+```

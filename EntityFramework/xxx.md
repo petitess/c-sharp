@@ -32,6 +32,10 @@ string search = "F.C.";
 var teamsEF = await context.Teams.Where(x => EF.Functions.Like(x.Name, $"%{search}%")).ToListAsync();
 foreach (var teamEF in teamsEF)
 Console.WriteLine("8: " + teamEF.Name);
+
+```
+#### LINQ
+```cs
 //LINQ Syntax - Get all
 var teamsA = await (from team in context.Teams select team).ToListAsync();
 foreach (var teamA in teamsA)
@@ -45,4 +49,26 @@ string searchC = "F.C.";
 var teamsC = await (from team in context.Teams where EF.Functions.Like(team.Name, $"%{searchC}%") select team).ToListAsync();
 foreach (var teamC in teamsC)
 Console.WriteLine("11: " + teamC.Name);
+```
+#### Aggregate methods
+```cs
+//Count
+var numberofTeams = await context.Teams.CountAsync();
+Console.WriteLine("12: " + numberofTeams);
+//Count filtered
+string filter = "F.C.";
+var numberofTeamsF = await context.Teams.CountAsync(x => EF.Functions.Like(x.Name, $"%{filter}%"));
+Console.WriteLine("13: " + numberofTeamsF);
+//Max
+var maxTeams = await context.Teams.MaxAsync(x => x.TeamId);
+Console.WriteLine("14: " + maxTeams);
+//Mix
+var minTeams = await context.Teams.MinAsync(x => x.TeamId);
+Console.WriteLine("15: " + minTeams);
+//Average
+var averageTeams = await context.Teams.AverageAsync(x => x.TeamId);
+Console.WriteLine("16: " + averageTeams);
+//Sum
+var sumTeams = await context.Teams.SumAsync(x => x.TeamId);
+Console.WriteLine("17: " + sumTeams);
 ```

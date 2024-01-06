@@ -1,3 +1,4 @@
+```cs
 //Eager Loading - Include(), AsSplitQuery(), ThenInclude()
 var leagues = await context.Leagues
     .Include(x => x.Teams)
@@ -28,3 +29,4 @@ if (leagueX.Teams.Any())
         Console.WriteLine(team.Name);
     }
 }
+```

@@ -159,3 +159,19 @@ teamsAsList = await teamsAsQuery.ToListAsync();
 foreach (var team in teamsAsQuery)
     Console.WriteLine("28: " + team.Name);
 ```
+#### Filtering 
+```cs
+var teams = await context.Teams
+    .Include("Coach")
+    .Include(x => x.HomeMatches.Where(x => x.HomeTeamScore > 0))
+    .ToListAsync();
+
+foreach (var team in teams)
+{
+    Console.WriteLine($"{team.Name} - {team.Coach.Name}");
+    foreach (var match in team.HomeMatches)
+    {
+        Console.WriteLine($" {match.HomeTeamScore}");
+    }
+}
+```

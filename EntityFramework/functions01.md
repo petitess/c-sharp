@@ -120,11 +120,47 @@ while (next)
     if (!next) break;
     page += 1;
 }
+```
+#### Projections
+```cs
 //Select - projection
 var teamNames = await context.Teams.Select(x => new { x.Name, x.CreatedDate } ).ToListAsync();
 foreach (var team in teamNames)
     Console.WriteLine("25: " + team.Name);
 ```
+```cs
+//Projections and Anonymous types
+var teams = await context.Teams
+    .Select(x => new TeamDetails 
+    {
+        TeamId = x.Id,
+        TeamName = x.Name,
+        CoachName = x.Coach.Name,
+        TotalHomeGoals = x.HomeMatches.Sum(y => y.HomeTeamScore),
+        TotalAwayGoals = x.AwayMatches.Sum(y => y.AwayTeamScore)
+    })
+    .ToListAsync();
+
+foreach (var team in teams)
+{
+    Console.WriteLine(team.TeamName + " " + team.CoachName + " Home goals: " + team.TotalHomeGoals );
+}
+
+class TeamInfo
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+class TeamDetails
+{
+    public int TeamId { get; set; }
+    public string TeamName { get; set; }
+    public string CoachName { get; set; }
+    public int TotalHomeGoals { get; set; }
+    public int TotalAwayGoals { get; set; }
+}
+```
+#### No Tracking
 ```cs
 //No Tracking - not saving in memory - can be added to DbContextOptionBuilder
 //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)

@@ -40,3 +40,15 @@ DayOfWeek GetFirstDayofYear2(int year)
 DateTime time = DateTime.Now;
 string timeStamp = time.AddHours(1).ToString("dd/MM/yyyy HH:mm");
 ```
+```cd
+Console.WriteLine(DateTime.Now);
+//2024-03-03 16:28:59
+Console.WriteLine(DateTime.Now.ToLongTimeString());
+//16:28:59
+Console.WriteLine(DateTime.Now.ToShortTimeString());
+//16:28
+Console.WriteLine(DateTime.Now.ToLongDateString());
+//den 3 mars 2024
+Console.WriteLine(DateTime.Now.ToShortDateString());
+//2024-03-03
+```

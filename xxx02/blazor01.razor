@@ -1,0 +1,245 @@
+@using Button.Pages
+@inherits LayoutComponentBase
+@inject NavigationManager _navManager
+@using Azure.Core;
+@using Azure.Identity;
+@using Newtonsoft.Json.Linq;
+@using System.Net;
+
+
+<PageTitle>Button</PageTitle>
+
+<div class="page">
+
+    
+    <div class="sidebar">
+
+        <nav class="flex-column" @onclick="RefreshMe">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </div>
+        </nav>
+
+        @foreach (Response x in array)
+        {
+            if(x.url != null)
+            {
+                <div class="nav-item px-3" style="padding:15px">
+                <button class="btn btn-danger" @onclick="(() => Function(x.url, x.name))">@x.name</button>
+                </div>
+            }
+        }
+        @if (apis != null)
+        {
+            @foreach (var x in apis)
+            {
+                if (x != null)
+                {
+                    <div class="nav-item px-3" style="padding:15px">
+                        <button class="btn btn-secondary" @onclick="(() => GetApiLink(x))">@x</button>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <main>
+        <div class="top-row px-4">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        </div>
+
+       
+             <div>HEJ @Name</div>
+            
+            <div>Link: @apiLink</div>
+            @Url
+            
+                  <!DOCTYPE html>
+                @if (Url != null)
+            {
+                <html>
+                <head>
+                    <title>Redoc</title>
+                    <!-- needed for adaptive design -->
+                    <meta charset="utf-8" />
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+
+                    <!--
+                    Redoc doesn't change outer page styles
+                    -->
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <redoc spec-url=@Url></redoc>
+
+                   <script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
+                </body>
+            </html>
+       }  
+
+        
+    </main>
+</div>
+
+
+@code {
+    [Parameter]
+    public string? text { get; set; }
+
+    public class Response
+    {
+        public string? name { get; set; }
+        public string? url { get; set; }
+    }
+
+    List<Response> array = new List<Response>
+    {
+            new Response {name = "swagger1", url = "https://petstore3.swagger.io/api/v3/openapi.json" },
+            new Response {name = "swagger2", url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/api-with-examples.yaml" },
+            new Response {name = "swagger3", url = "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/link-example.yaml" }
+    };
+
+    protected async override Task OnInitializedAsync()
+    {
+        await GetApis();
+    }
+
+    string? Url { get; set; }
+    string? Name { get; set; }
+    void Function(string x, string y)
+    {
+
+        Url = x;
+        Name = y;
+        //_navManager.NavigateTo($"/{y}");
+    }
+
+    List<string>? apis;
+
+    public class ApimObject
+    {
+        public string Name { get; set; }
+    }
+
+    public string? apiName { get; set; }
+
+    private async Task GetApis()
+    {
+        AccessToken token =
+                await new DefaultAzureCredential()
+                .GetTokenAsync(
+                    new TokenRequestContext(
+            new[] { "https://management.azure.com/.default" }
+            ));
+        await Console.Out.WriteLineAsync(token.ExpiresOn.ToString() + " Get Apis");
+        string subid = "b44ebc7c-2b8f-4e69-9817-0544edadf7c3";
+        string rgname = "rg-infra-apim-dev-we-01";
+        string apimname = "apim-infra-apim-dev-we-01";
+        string apiversion = "2023-09-01-preview";
+        string urlAzure = $"https://management.azure.com/subscriptions/{subid}/resourceGroups/{rgname}/providers/Microsoft.ApiManagement/service/{apimname}/apis?api-version={apiversion}";
+        var httpRequestAzure = (HttpWebRequest)WebRequest.Create(urlAzure);
+
+        try
+        {
+            httpRequestAzure.Accept = "application/json";
+            httpRequestAzure.Headers["Authorization"] = "Bearer " + token.Token;
+            //GET all APIs
+            var httpResponseAzure = (HttpWebResponse)httpRequestAzure.GetResponse();
+            Console.WriteLine("StatusCode: " + httpResponseAzure.StatusCode + " Method " + httpResponseAzure.Method);
+            var streamReaderAzure = new StreamReader(httpResponseAzure.GetResponseStream());
+            var resultAzure = streamReaderAzure.ReadToEnd();
+            dynamic dataApis = JObject.Parse(resultAzure);
+            //Console.WriteLine("Apis: " + dataApis.value);
+
+
+            //apis = dataApis.value.ToObject<List<ApimObject>>();
+
+            foreach (var content in dataApis.value.ToObject<List<ApimObject>>())
+            {
+                Console.WriteLine("Apix: " + content.Name);
+            }
+
+            foreach (JObject content in dataApis.value.Children<JObject>())
+            {
+                var c = content.SelectToken("name").ToString();
+
+                Console.WriteLine("Apis: " + c);
+            }
+            //Transform json object to single property
+            List<string> items = ((JArray)dataApis.value).Select(x => apiName = (string)x["name"]).ToList();
+            apis = items;
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    string? apiLink;
+
+    private async Task GetApiLink(string apiName)
+    {
+        AccessToken token =
+                await new DefaultAzureCredential()
+                .GetTokenAsync(
+                    new TokenRequestContext(
+            new[] { "https://management.azure.com/.default" }
+            ));
+        await Console.Out.WriteLineAsync(token.ExpiresOn.ToString() + " Get Link");
+        string subid = "b44ebc7c-2b8f-4e69-9817-0544edadf7c3";
+        string rgname = "rg-infra-apim-dev-we-01";
+        string apimname = "apim-infra-apim-dev-we-01";
+        string apiversion = "2023-09-01-preview";
+
+        try
+        {
+            string format = "openapi-link"; //For json output:openapi%2Bjson, for url output
+                                            //https://learn.microsoft.com/en-us/rest/api/apimanagement/api-export/get
+            string urlSwagger = $"https://management.azure.com/subscriptions/{subid}/resourceGroups/{rgname}/providers/Microsoft.ApiManagement/service/{apimname}/apis/{apiName}?format={format}&export=true&api-version={apiversion}";
+            var httpRequestSwagger = (HttpWebRequest)WebRequest.Create(urlSwagger);
+            httpRequestSwagger.Accept = "application/json";
+            httpRequestSwagger.Headers["Authorization"] = "Bearer " + token.Token;
+            var httpResponseSwagger = (HttpWebResponse)httpRequestSwagger.GetResponse();
+            Console.WriteLine("StatusCode: " + httpResponseSwagger.StatusCode + " Method " + httpResponseSwagger.Method);
+            var streamReaderSwagger = new StreamReader(httpResponseSwagger.GetResponseStream());
+            var resultSwagger = streamReaderSwagger.ReadToEnd();
+            dynamic dataSwagger = JObject.Parse(resultSwagger);
+            //Show Swagger file/link
+            Console.WriteLine(dataSwagger);
+            Console.WriteLine(dataSwagger.properties.value.link);
+
+            apiLink = dataSwagger.properties.value.link.ToString();
+        }
+        catch (Exception ex)
+        {
+
+            Console.WriteLine(ex.Message);
+        }
+    }
+
+    
+    private async void RefreshMe()
+    {
+        StateHasChanged();
+        await GetApis();
+        //_navManager.NavigateTo(_navManager.BaseUri, true);
+    }
+
+
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+}

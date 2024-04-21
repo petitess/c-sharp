@@ -159,8 +159,8 @@
             //Console.WriteLine("Apis: " + dataApis.value);
 
 
+            //Transform json object to c# class
             //apis = dataApis.value.ToObject<List<ApimObject>>();
-
             foreach (var content in dataApis.value.ToObject<List<ApimObject>>())
             {
                 Console.WriteLine("Apix: " + content.Name);

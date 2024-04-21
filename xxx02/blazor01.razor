@@ -176,6 +176,13 @@
             List<string> items = ((JArray)dataApis.value).Select(x => apiName = (string)x["name"]).ToList();
             apis = items;
 
+            //Transform json object to c# class
+            List<ApimObject> items2 = ((JArray)dataApis.value).Select(x => new ApimObject 
+            { 
+                Name = (string)x["name"] 
+
+            }).ToList();
+
         }
         catch (Exception ex)
         {

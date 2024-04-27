@@ -27,3 +27,4 @@ var authResult = await _msalClent
 
 var accessToken = authResult.AccessToken;
 ```
+https://anoopt.medium.com/few-ways-of-obtaining-access-token-in-azure-application-to-application-authentication-40a9473a2dde

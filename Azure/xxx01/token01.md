@@ -1,4 +1,4 @@
-### Managed Identity
+### Managed Identity / Personal account
 ```cs
 AccessToken token =
                 await new DefaultAzureCredential()

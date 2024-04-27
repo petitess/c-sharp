@@ -1,7 +1,6 @@
 ### Managed Identity / Personal account
 ```cs
-AccessToken token =
-                await new DefaultAzureCredential()
+AccessToken token = await new DefaultAzureCredential()
                 .GetTokenAsync(
                     new TokenRequestContext(
             new[] { "https://management.azure.com/.default" }

@@ -7,7 +7,7 @@ namespace SetSecrets
     {
         static async Task Main(string[] args)
         {
-            string GithubPat = "github_pat_11AWLQFRxxx";
+            string GithubPat = "github_pat_11AWLQFRxxxx";
             string GithubOwner = "petitess";
             string GithubRepo = "yaml";
             string GithubUrl = $"https://api.github.com/repos/{GithubOwner}/{GithubRepo}/actions/secrets/public-key";

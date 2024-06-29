@@ -36,7 +36,7 @@ namespace HttpClient
             ));
             Console.WriteLine("Azure: " + token.Token.ToString()?.Substring(0, 15));
 
-            string subid = "0dcc13b7-1a10-483e-95aa-fe7e71802e2e";
+            string subid = "x-fe7e71802e2e";
             string rgname = "rg-xxx-func-dev-we-01";
             string apiversion = "2024-03-01";
             string urlAzure = $"https://management.azure.com/subscriptions/{subid}/resourceGroups/{rgname}?api-version={apiversion}";

@@ -1,0 +1,152 @@
+name: "PWSTATE"
+
+on:
+  workflow_dispatch:
+    inputs:
+      api-key:
+        description: PWSTATE API KEY
+        required: true
+        type: string
+      secret_1:
+        description: "PWSTATE ID 1 (1234:::?QueryAll&PreventAuditing=true)"
+        required: true
+        type: string
+      secret_2:
+        description: "PWSTATE ID 2 (not required)"
+        required: false
+        default: ""
+        type: string
+      secret_3:
+        description: "PWSTATE ID 3 (not required)"
+        required: false
+        default: ""
+        type: string
+      secret_4:
+        description: "PWSTATE ID 4 (not required)"
+        required: false
+        default: ""
+        type: string
+      secret_5:
+        description: "PWSTATE ID 5 (not required)"
+        required: false
+        default: ""
+        type: string
+      github_repo:
+        description: "Add To Github Repo:"
+        default: abc-analytics-common-func
+        type: choice
+        options:
+          - none
+          - azure-application-abc-analytics-dev-westeurope
+          - azure-application-abc-analytics-qua-westeurope
+          - abc-analytics-common-func
+          - abc-analytics-dw
+          - abc-analytics-common-infra
+          - abc-analytics-dp
+          - abc-analytics-notebooks
+          - abc-analytics-powerbi
+      github_pat:
+        description: Github PAT (classic, SSO, repo permission)
+        required: false
+        type: string
+      kv_name:
+        description: "Add To Key Vault:"
+        required: false
+        default: kvsgsatsdevweu01
+        type: choice
+        options:
+          - none
+          - kvsgsatsdevweu01
+          - kvsgsatsquaweu01
+          - kvsgsatsprdweu01
+      rg_kv_name:
+        description: Key Vault Resource group 
+        required: false
+        type: choice
+        default: rg-abc-analytics-dev-westeurope-01
+        options:
+          - none
+          - rg-abc-analytics-dev-westeurope-01
+          - rg-abc-analytics-qua-westeurope-01
+          - rg-abc-analytics-prd-westeurope-01
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  run-pwstate:
+    runs-on: [self-hosted, Windows]
+    defaults:
+      run:
+        shell: pwsh
+        working-directory: ${{github.workspace}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Azure login dev
+        if: inputs.kv_name == 'kvsgsatsdevweu01'
+        uses: azure/login@v2 
+        with:
+          client-id: ${{ vars.CLIENT_ID_DEV }}
+          tenant-id: ${{ vars.TENANT_ID_DEV }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_DEV }}
+
+      - name: Azure login qua
+        if: inputs.kv_name == 'kvsgsatsquaweu01'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID_QUA }}
+          tenant-id: ${{ vars.TENANT_ID_QUA }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_QUA }}
+
+      - name: Azure login prd
+        if: inputs.kv_name == 'kvsgsatsprdweu01'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.CLIENT_ID_PRD }}
+          tenant-id: ${{ vars.TENANT_ID_PRD }}
+          subscription-id: ${{ vars.SUBSCRIPTION_ID_PRD }}
+
+      - name: "Get-ChildItem"
+        run: |
+          (Get-ChildItem).Name
+
+      - name: Save environment variables
+        shell: pwsh
+        run: |
+          $Token = (az account get-access-token --query accessToken --output tsv)
+          $SubId = (az account show --query id --output tsv)
+          echo "AZ_TOKEN=$Token" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "ARM_SUBSCRIPTION_ID=$SubId" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "API_KEY=${{ inputs.api-key }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "SECRET_1=${{ inputs.secret_1 }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "SECRET_2=${{ inputs.secret_2 }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "SECRET_3=${{ inputs.secret_3 }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "SECRET_4=${{ inputs.secret_4 }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "SECRET_5=${{ inputs.secret_5 }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "GH_PAT=${{ inputs.github_pat }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "GH_REPO=${{ inputs.github_repo }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "AZURE_RG_KV_NAME=${{ inputs.rg_kv_name }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "AZURE_KV_NAME=${{ inputs.kv_name }}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append       
+          Get-ChildItem Env:   
+
+      - name: Build dotnet
+        shell: pwsh
+        run: |
+          (Get-ChildItem SetSecrets).Name
+          Test-Path ./SetSecrets/SetSecrets/SetSecrets.csproj
+          dotnet build --configuration Release "SetSecrets/SetSecrets/SetSecrets.csproj"
+
+      - name: Run dotnet
+        shell: pwsh
+        run: |
+          (Get-ChildItem SetSecrets).Name
+          Test-Path ./SetSecrets/SetSecrets/SetSecrets.csproj
+          dotnet run --configuration Release --project "SetSecrets/SetSecrets/SetSecrets.csproj"

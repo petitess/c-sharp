@@ -1,0 +1,208 @@
+@page "/rotator"
+@using Azure.Core
+@using Azure.Identity
+@using Microsoft.Graph
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq
+@using System.Text;
+@inject NavigationManager _navManager
+
+<h3>Rotator</h3>
+
+<label>@title</label>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Display Name</th>
+            <th>Application Id</th>
+            <th>Object Id</th>
+            <th>Secret</th>
+            <th>Secret Expires</th>
+            <th>Rotate</th>
+            <th>Last Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@DisplayName</td>
+            <td>@AppId</td>
+            <td>@ObjectId</td>
+            <td>@Secret</td>
+            <td>@SecretExpires</td>
+            <td><button class="btn btn-danger" @onclick=@(() => RotateSecret())><span class="oi oi-reload" aria-hidden="true"></span></button></td>
+            <td>@SecretUpdated</td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+    string title = "Secrets";
+    string DisplayName = "default";
+    string AppId = "default";
+    string ObjectId = "default";
+    string Secret = "default";
+    string SecretExpires = "default";
+    string SecretUpdated = "default";
+
+    public Rotator()
+    {
+        var getApp = GetApp().Result;
+        AppId = getApp.AppId;
+        DisplayName = getApp.DisplayName;
+        ObjectId = getApp.ObjectId;
+        Secret = getApp.Secret;
+        SecretExpires = getApp.SecretExpires;
+        SecretUpdated = getApp.SecretUpdated;
+    }
+
+    /*public async Task<string> GetAzToken()
+                 {
+                 AccessToken token =
+                 await new DefaultAzureCredential()
+                    .GetTokenAsync(
+                    new TokenRequestContext(
+            new[] { "https://management.azure.com/.default" }
+        ));
+
+        return token.Token;
+    }*/
+
+    public async Task<string> GetMgToken()
+    {
+        AccessToken token = await new ChainedTokenCredential(
+         //new ManagedIdentityCredential(),
+         new EnvironmentCredential()).GetTokenAsync(
+             new TokenRequestContext(
+             new[] { "https://graph.microsoft.com/.default" }
+             )
+         ).ConfigureAwait(false);
+
+        return token.Token;
+    }
+
+    public async Task<AppReg> GetApp()
+    {
+        //GET request
+        string objectId = "x-25a8d733fc56";
+        string Url = $"https://graph.microsoft.com/v1.0/applications/{objectId}";
+        //Console.WriteLine("URL: " + Url);
+        System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
+        string MgToken = GetMgToken().Result;
+        httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + MgToken);
+        httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+        var httpResponseKey = httpClient.GetAsync(Url);
+        //Console.WriteLine("IsSuccessStatusCode: " + httpResponseKey.IsSuccessStatusCode);
+        var jsonResult = await httpResponseKey.Result.Content.ReadAsStringAsync();
+        dynamic? response = JsonConvert.DeserializeObject(jsonResult);
+
+        if (httpResponseKey.Result.StatusCode.ToString() == "OK")
+        {
+            dynamic? customer_secret = null;
+
+            JObject o = JObject.Parse(jsonResult);
+
+            var secret = o.SelectToken("$.passwordCredentials[?(@.displayName == 'customer_secret')]");
+
+            customer_secret = secret;
+
+            if (secret == null)
+            {
+                dynamic? notFound = JsonConvert.DeserializeObject(@"
+                {
+                ""hint"": ""NotFound"",
+                ""endDateTime"": ""NotFound"",
+                }");
+
+                customer_secret = notFound;
+            };
+
+            var app = new AppReg
+            {
+                    AppId = response?.appId,
+                    DisplayName = response?.displayName,
+                    ObjectId = response?.id,
+                    Secret = customer_secret?.hint,
+                    SecretExpires = customer_secret?.endDateTime,
+                    SecretUpdated = customer_secret?.startDateTime
+            };
+
+            return app;
+
+        }
+        else {
+            dynamic? res = httpResponseKey.Result.StatusCode.ToString();
+            var app = new AppReg
+                {
+                AppId = res,
+                DisplayName = res,
+                ObjectId = res,
+                Secret = res,
+                SecretExpires = res
+                };
+            return app;
+        }
+    }
+
+    public async Task RotateSecret()
+    {
+        //GET request
+        string objectId = "x-25a8d733fc56";
+        string Url = $"https://graph.microsoft.com/v1.0/applications/{objectId}";
+        //Console.WriteLine("URL: " + Url);
+        System.Net.Http.HttpClient httpClient = new System.Net.Http.HttpClient();
+        string MgToken = GetMgToken().Result;
+        httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + MgToken);
+        httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+        var httpResponseKey = httpClient.GetAsync(Url);
+        //Console.WriteLine("IsSuccessStatusCode: " + httpResponseKey.IsSuccessStatusCode);
+        var jsonResult = await httpResponseKey.Result.Content.ReadAsStringAsync();
+        dynamic? response = JsonConvert.DeserializeObject(jsonResult);
+
+
+
+        if (httpResponseKey.Result.StatusCode.ToString() == "OK")
+        {   
+            //Delete
+            JObject o = JObject.Parse(jsonResult);
+            dynamic? secret = o.SelectToken("$.passwordCredentials[?(@.displayName == 'customer_secret')]");
+            if (secret != null)
+            {
+                var jsonContent = new StringContent(JsonConvert.SerializeObject(new
+                {
+                    keyId = secret?.keyId
+
+                }), Encoding.UTF8, "application/json");
+                Url = $"https://graph.microsoft.com/v1.0/applications/{objectId}/removePassword";
+                httpResponseKey = httpClient.PostAsync(Url, jsonContent);
+            }
+            if (httpResponseKey.Result.StatusCode.ToString() == "NoContent" || secret == null)
+            {
+                var jsonContent2 = new StringContent(JsonConvert.SerializeObject(new
+                {
+                    passwordCredential = new { displayName = "customer_secret" }
+
+                }), Encoding.UTF8, "application/json");
+                //Create
+                Url = $"https://graph.microsoft.com/v1.0/applications/{objectId}/addPassword";
+                httpResponseKey = httpClient.PostAsync(Url, jsonContent2);
+                var jsonResulta = await httpResponseKey.Result.Content.ReadAsStringAsync();
+                dynamic? responsee = JsonConvert.DeserializeObject(jsonResulta);
+                Secret = responsee?.hint;
+                SecretExpires = responsee?.endDateTime;
+                SecretUpdated = responsee?.startDateTime;
+
+            }
+        }
+    }
+
+    public class AppReg
+    {
+        public string? DisplayName { get; set; }
+        public string? AppId { get; set; }
+        public string? ObjectId { get; set; }
+        public string? Secret { get; set; }
+        public string? SecretExpires { get; set; }
+        public string? SecretUpdated { get; set; }
+    }
+}

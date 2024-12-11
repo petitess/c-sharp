@@ -1,0 +1,71 @@
+@page "/rotator"
+@using Azure.Core
+@using Azure.Identity
+@using Microsoft.Graph
+
+<h3>Rotator</h3>
+
+
+<label>@title</label>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>App Id</th>
+            <th>Secret</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@aztoken</td>
+            <td>@azvalue</td>
+        </tr>
+        <tr>
+            <td>@mgtoken</td>
+            <td>@mgvalue</td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+    string title = "Token";
+    string aztoken = "Azure Token";
+    string mgtoken = "Graph Token";
+    string azvalue = "default";
+    string mgvalue = "default";
+
+
+
+    public Rotator()
+    {
+        azvalue = GetAzToken().Result;
+        mgvalue = GetMgToken().Result;
+    }
+
+
+    public async Task<string> GetAzToken()
+    {
+        AccessToken token =
+                 await new DefaultAzureCredential()
+                .GetTokenAsync(
+                    new TokenRequestContext(
+            new[] { "https://management.azure.com/.default" }
+            ));
+
+        return token.Token;
+    }
+
+    public async Task<string> GetMgToken()
+    {
+        AccessToken token = await new ChainedTokenCredential(
+         //new ManagedIdentityCredential(),
+         new EnvironmentCredential()).GetTokenAsync(
+             new TokenRequestContext(
+             new[] { "https://graph.microsoft.com/.default" }
+             )
+         ).ConfigureAwait(false);
+
+        return token.Token;
+    }
+}

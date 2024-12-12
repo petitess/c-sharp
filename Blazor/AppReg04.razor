@@ -5,6 +5,7 @@
 @using Newtonsoft.Json;
 @using Newtonsoft.Json.Linq
 @using System.Text;
+@using System.Reflection
 @inject NavigationManager _navManager
 
 <h3>Rotator</h3>
@@ -17,7 +18,7 @@
             <th>Display Name</th>
             <th>Application Id</th>
             <th>Object Id</th>
-            <th>Secret / Exparation / Last Updated</th>
+            <th>Secret / Expiration / Last Updated</th>
         </tr>
     </thead>
     <tbody>
@@ -44,12 +45,39 @@
     </tbody>
 </table>
 
+@if (NewSecret != null)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block; background-color:rgba(0,0,0,0.5);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save Secret</h5>
+                    <button type="button" class="close" @onclick="HideModal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>@NewSecret</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="HideModal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
 @code {
     string title = "Secrets";
     string DisplayName = "default";
     string AppId = "default";
     string ObjectId = "default";
     IEnumerable<JToken>? SecretList = null;
+
+    string? NewSecret = null;
+
+    //private bool isModalVisible = false;
 
     public Rotator()
     {
@@ -60,23 +88,23 @@
         SecretList = getApp.SecretsList;
     }
 
-    /*public async Task<string> GetAzToken()
-                 {
-                 AccessToken token =
-                 await new DefaultAzureCredential()
-                    .GetTokenAsync(
-                    new TokenRequestContext(
+    public async Task<string> GetAzToken()
+    {
+        AccessToken token =
+        await new DefaultAzureCredential()
+           .GetTokenAsync(
+           new TokenRequestContext(
             new[] { "https://management.azure.com/.default" }
         ));
 
         return token.Token;
-    }*/
+    }
 
     public async Task<string> GetMgToken()
     {
         AccessToken token = await new ChainedTokenCredential(
-         //new ManagedIdentityCredential(),
-         new EnvironmentCredential()
+         //new ManagedIdentityCredential() //For Managed Identity
+         new EnvironmentCredential() //For Local Run, environment variables
         ).GetTokenAsync(
              new TokenRequestContext(
              new[] { "https://graph.microsoft.com/.default" }
@@ -181,10 +209,13 @@
                 var jsonResulta = await httpResponseKey.Result.Content.ReadAsStringAsync();
                 dynamic? responsee = JsonConvert.DeserializeObject(jsonResulta);
 
+                NewSecret = responsee.secretText.ToString();
+
                 await OnInitializedAsync();
             }
         }
     }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -194,6 +225,12 @@
         ObjectId = getApp.ObjectId;
         SecretList = getApp.SecretsList;
     }
+
+    private void HideModal()
+    {
+        NewSecret = null;
+    }
+
     public class AppReg
     {
         public string? DisplayName { get; set; }

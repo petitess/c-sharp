@@ -5,8 +5,9 @@
 @using Newtonsoft.Json;
 @using Newtonsoft.Json.Linq
 @using System.Text;
-@using System.Reflection
-@using System.Collections
+@using System.Reflection;
+@using System.Collections;
+@using System.Windows;
 @inject NavigationManager _navManager
 @inject IJSRuntime JSRuntime
 
@@ -28,16 +29,25 @@
             @foreach (var a in Apps)
             {
                 <tr>
-                    <td class="display-name" @onclick=@(() =>ShowEditModal(@a.ObjectId))>@a.DisplayName </td>
-                    <td>@a.AppId</td>
-                    <td>@a.ObjectId</td>
+                    <td class="display-name" @onclick=@(() =>ShowEditModal(@a.ObjectId))>@a.DisplayName</td>
+                    <td>
+                        @a.AppId 
+                        <button @onclick=@(() => CopyToClipboard(@a.AppId)) class="clipboard" >
+                            <span class="oi oi-document" title="Copy Application Id"></span>
+                        </button>
+                    </td>
+                    <td>@a.ObjectId
+                        <button @onclick=@(() => CopyToClipboard(@a.ObjectId)) class="clipboard">
+                            <span class="oi oi-document" title="Copy Object Id	"></span>
+                        </button>
+                    </td>
                     @if (@a.SecretsList != null)
                     {
                         <td >
                             @foreach (var sec in @a.SecretsList)
                             {
-                                <button class="btn btn-danger" style="margin-top: 1px;" @onclick=@(() => RotateSecret(sec.KeyId, a.ObjectId)
-                                        )><span class="oi oi-reload" aria-hidden="true"></span></button>
+                                <button class="btn btn-danger" style="margin-top: 1px;" @onclick=@(() => RotateSecret(sec.KeyId, a.ObjectId))>
+                                    <span class="oi oi-reload"></span></button>
                                 <label style="margin-top: 0px; margin-left:3px">@sec.Hint*** /</label>
                                 <label>@sec.EndDateTime /</label>
                                 <label>@sec.StartDateTime </label>
@@ -83,59 +93,50 @@
                 <div class="edit-win"><b style="font-size:30px;">Edit App Registration</b></div>
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-                @* <br /> *@
                 <div class="edit-win">
                     <label for="name">Created:</label>
-                    <label for="name">@App.CreateTime</label>
+                    <label for="name">@App?.CreateTime</label>
                 </div>
-                <div class="edit-win">
+                <div class="edit-win" style="display:flex">
                     <label for="name">Object Id:</label>
-                    <label for="name">@App.ObjectId</label>
+                    <div for="name" >@App.ObjectId</div>
                 </div>
-                <div class="edit-win">
+                <div class="edit-win" style="display:flex">
                     <label for="name">Application Id:</label>
                     <label for="name">@App.AppId</label>
                 </div>
                 <div class="edit-win">
                     <label for="name">Display Name:</label>
-                    <InputText @bind-Value="App.DisplayName" class="form-control" id="title"></InputText>
+                    <InputText @bind-Value="App.DisplayName" class="form-control" id="dn"></InputText>
                     <ValidationMessage For="@(() => App.DisplayName)" />
                 </div>
                 <div class="edit-win">
                     <label for="name">Home Page:</label>
-                    <InputText @bind-Value="App.HomePageUrl" class="form-control" id="title" placeholder="https://mywebsite.com"></InputText>
+                    <InputText @bind-Value="App.HomePageUrl" class="form-control" id="hp" placeholder="https://mywebsite.com"></InputText>
                     <ValidationMessage For="@(() => App.HomePageUrl)" />
                 </div>
                 <div class="edit-win">
                     <label for="name">Notes:</label>
-                    <InputText @bind-Value="App.Notes" class="form-control" id="title"></InputText>
+                    <InputText @bind-Value="App.Notes" class="form-control" id="no"></InputText>
                     <ValidationMessage For="@(() => App.Notes)" />
                 </div>
-                <br />
-
                 <div class="edit-win">
-                    <button type="submit" class="btn btn-danger">Submit</button>
+                    <label for="author">Term Page:</label>
+                    <InputSelect @bind-Value="App.TermPageUrl" class="form-select" id="author">
+                        <option value="">-- Select Url --</option>
+                        @foreach (var p in TermPageUrls)
+                        {
+                            <option value="@p">@p</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => App.TermPageUrl)"></ValidationMessage>
+                </div>
+                <div class="edit-win">
+                    <button type="submit" class="btn btn-danger" @onmousedown="@(() => HideSaveText())">Save</button>
                     <button type="button" class="btn btn-secondary" @onclick="HideEditModal">Close</button>
-                    <div style="word-wrap: break-word; margin-top:10px"> <p>@String1</p> </div>
+                    <div style="word-wrap: break-word; margin-top:10px; white-space: pre-line"> <p>@String1</p> </div>
                 </div>
             </EditForm>
-        </div>
-    </div>
-}
-
-@if (false)
-{
-    <div class="modal" id="editModal" style="display:none; position:fixed; z-index:1; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.4);">
-        <div class="modal-content" style="background-color:#fefefe; margin:15% auto; padding:20px; border:1px solid #888; width:80%;">
-            <span class="close" style="color:#aaa; float:right; font-size:28px; font-weight:bold;" onclick="closeModal()">&times;</span>
-            <h2>Edit Item</h2>
-            <form id="editForm">
-                <label for="itemName">Item Name:</label><br>
-                <input type="text" id="itemName" name="itemName" style="width:100%;"><br><br>
-                <label for="itemDescription">Description:</label><br>
-                <textarea id="itemDescription" name="itemDescription" style="width:100%; height:100px;"></textarea><br><br>
-                <button type="submit" style="background-color:#4CAF50; color:white; padding:10px 15px; border:none; cursor:pointer;">Save Changes</button>
-            </form>
         </div>
     </div>
 }
@@ -155,22 +156,38 @@
     margin:15px
     }
 
+    button.clipboard {
+        color: black;
+        border: none;
+        background: none
+    }
+
+    button.clipboard:hover {
+        color: lightgrey;
+        content: close-quote
+    }
+
 </style>
 
 
 @code {
     List<AppReg>? Apps = new List<AppReg>();
     AppReg? App = new AppReg();
-    // AppEdit? AppEdit2 = new AppEdit();
     string? NewSecret = null;
     string? String1 = null;
     bool Edit = false;
-
+    bool HideSave = false;
+    List<string> TermPageUrls = new List<string> 
+    {
+        "https://abc.app.eu.opsgenie.com/",
+        "https://portal.azure.com/",
+        "https://support.se/",
+        "https://myterms.com/"
+    };
     public Rotator2()
     {
         GetApps();
     }
-
 
     public async Task<string> GetMgToken()
     {
@@ -255,7 +272,6 @@
 
         if (httpResponseKey.Result.StatusCode.ToString() == "OK")
         {
-
             var app = new AppReg
                 {
                     AppId = response?.appId,
@@ -264,6 +280,7 @@
                     CreateTime = response?.createdDateTime,
                     Notes = response?.notes,
                     HomePageUrl = response?.web?.homePageUrl,
+                    TermPageUrl = response?.info?.termsOfServiceUrl,
                     SecretsList = null
                 };
             App = app;
@@ -285,7 +302,8 @@
         {
             notes = string.IsNullOrEmpty(app?.Notes) ? "\u0020" : app?.Notes,
             displayName = $"{app?.DisplayName}",
-            web = new { homePageUrl = $"{app?.HomePageUrl}" }
+            web = new { homePageUrl = $"{app?.HomePageUrl}" },
+            info = new { termsOfServiceUrl = $"{app?.TermPageUrl}" }
 
         }), Encoding.UTF8, "application/json");
         var httpResponseKey = httpClient.PatchAsync(Url, jsonContent);
@@ -353,6 +371,11 @@
         }
     }
 
+    private async Task CopyToClipboard(string value)
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", value);
+    }
+
     protected override async Task OnInitializedAsync()
     {
 
@@ -381,6 +404,11 @@
         NevigateToYourUrl();
     }
 
+    private void HideSaveText()
+    {
+        String1 = null;
+    }
+
     private async Task HandleUpdateBook(AppReg app)
     {
         UpdateApp(app);
@@ -394,6 +422,7 @@
         public string? CreateTime { get; set; }
         public string? Notes { get; set; }
         public string? HomePageUrl { get; set; }
+        public string? TermPageUrl { get; set; }
         public List<AppSecrets>? SecretsList { get; set; }
     }
 

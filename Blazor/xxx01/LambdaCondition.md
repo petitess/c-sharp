@@ -13,6 +13,7 @@ class=@(Dark ? "btn btn-warning" : "btn btn-secondary")>
 </button>
 
 @code {
+    bool Dark = false;
     private void ChangeBtn()
     {
         Dark = Dark ? false : true;

@@ -8,8 +8,14 @@
 ```
 ```razor
 <button @onclick="ChangeBtn"
-        class=@(Dark ? "btn btn-warning" : "btn btn-secondary")>
+class=@(Dark ? "btn btn-warning" : "btn btn-secondary")>
     Toggle Dark/Light Mode
 </button>
 
+@code {
+    private void ChangeBtn()
+    {
+        Dark = Dark ? false : true;
+    }
+}
 ```

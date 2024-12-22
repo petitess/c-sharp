@@ -1,3 +1,5 @@
+Create Tooltip.razor
+```razor
 @code {
     private bool _isVisible;
 
@@ -34,12 +36,14 @@
     opacity: 1;
 }
 </style>
-@*
-USE IN A BLAZOR PAGE:
+```
+
+Create a Blazor Page:
+```razor
 @page "/tooltip-example"
 
 <h3>Tooltip Example</h3>
 <Tooltip Text="This is a tooltip!">
     <button>Hover over me!</button>
 </Tooltip>
-*@
+```

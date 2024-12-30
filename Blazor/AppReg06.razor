@@ -11,11 +11,16 @@
 @inject NavigationManager _navManager
 @inject IJSRuntime JSRuntime
 
-<h3>App Registrations</h3>
+<h3 class="text-common">App Registrations</h3>
+
+<button @onclick="ToggleDarkMode"
+class=@(isDarkMode ? "btn btn-warning" : "btn btn-secondary")>
+    Toggle Dark/Light Mode
+</button>
 
 <table class="table">
     <thead>
-        <tr>
+        <tr class="text-common">
             <th>Display Name</th>
             <th>Application Id</th>
             <th>Object Id</th>
@@ -29,21 +34,24 @@
             @foreach (var a in Apps)
             {
                 <tr>
-                    <td class="display-name" @onclick=@(() =>ShowEditModal(@a.ObjectId))>@a.DisplayName</td>
-                    <td>
+                    <td class="text-common" @onclick=@(() =>ShowEditModal(@a.ObjectId))>@a.DisplayName</td>
+                    <td class="text-common">
                         @a.AppId 
                         <button @onclick=@(() => CopyToClipboard(@a.AppId)) class="clipboard" >
                             <span class="oi oi-document" title="Copy Application Id"></span>
                         </button>
                     </td>
-                    <td>@a.ObjectId
-                        <button @onclick=@(() => CopyToClipboard(@a.ObjectId)) class="clipboard">
-                            <span class="oi oi-document" title="Copy Object Id	"></span>
-                        </button>
+                    <td class="text-common">
+                        @a.ObjectId
+                        <Tooltip Text="Copy Object Id">
+                            <button @onclick=@(() => CopyToClipboard(@a.ObjectId)) class="clipboard">
+                                <span class="oi oi-document"></span> 
+                            </button>
+                        </Tooltip>
                     </td>
                     @if (@a.SecretsList != null)
                     {
-                        <td >
+                        <td class="text-common">
                             @foreach (var sec in @a.SecretsList)
                             {
                                 <button class="btn btn-danger" style="margin-top: 1px;" @onclick=@(() => RotateSecret(sec.KeyId, a.ObjectId))>
@@ -58,7 +66,6 @@
                 </tr>
             }
         }
-
     </tbody>
 </table>
 
@@ -143,28 +150,48 @@
 
 <style>
 
+    html, body {
+    background-color: @(isDarkMode ? "rgba(10,10,10,0.7)" : "white");
+    }
+
+    .text-common {
+    color: @(isDarkMode ? "white" : "black")
+    }
+
     div.modal {
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(10,10,10,0.7);
+
+    color: @(isDarkMode ? "white" : "black")
+    }
+
+    .modal-content {
+    background-color: @(isDarkMode ? "rgba(35,35,35,1)" : "white");
     }
 
     td.display-name:hover {
-    background-color: oldlace;
     border-radius: 25px;
     }
 
     div.edit-win {
-    margin:15px
+    margin:15px;
+    color: @(isDarkMode ? "white" : "black");
+    }
+
+    .form-control,
+    .form-select  {
+    background-color: @(isDarkMode ? "rgba(165,165,165,1)" : "white");
     }
 
     button.clipboard {
-        color: black;
-        border: none;
-        background: none
+    color: black;
+    border: none;
+    background: none;
+    color: @(isDarkMode ? "white" : "black")
     }
 
     button.clipboard:hover {
-        color: lightgrey;
-        content: close-quote
+    color: lightgrey;
+    content: close-quote
     }
 
 </style>
@@ -177,6 +204,7 @@
     string? String1 = null;
     bool Edit = false;
     bool HideSave = false;
+    bool isDarkMode = false;
     List<string> TermPageUrls = new List<string> 
     {
         "https://abc.app.eu.opsgenie.com/",
@@ -378,7 +406,9 @@
 
     protected override async Task OnInitializedAsync()
     {
-
+        CookieService coo = new CookieService(JSRuntime);
+        var cookieValue = await coo.GetCookie("darkMode");
+         isDarkMode = cookieValue == "true";
     }
 
     void NevigateToYourUrl()
@@ -409,9 +439,16 @@
         String1 = null;
     }
 
+    private async Task ToggleDarkMode()
+    {
+        isDarkMode = !isDarkMode;
+        CookieService coo = new CookieService(JSRuntime);
+        await coo.SetCookie("darkMode", isDarkMode.ToString().ToLower(), 30);
+    }
+
     private async Task HandleUpdateBook(AppReg app)
     {
-        UpdateApp(app);
+        await UpdateApp(app);
     }
 
     public class AppReg
@@ -433,5 +470,28 @@
         public string? StartDateTime { get; set; }
         public string? KeyId { get; set; }
         public string? Hint { get; set; }
+    }
+
+    //Add to Program.cs builder.Services.AddScoped<CookieService>();
+    public class CookieService
+    {
+        private readonly IJSRuntime _jsRuntime;
+
+        public CookieService(IJSRuntime jsRuntime)
+        {
+            _jsRuntime = jsRuntime;
+        }
+
+        public async Task SetCookie(string name, string value, int days)
+        {
+            var expirationDate = DateTime.UtcNow.AddDays(days);
+            await _jsRuntime.InvokeVoidAsync("eval", $"document.cookie = '{name}={value}; expires={expirationDate.ToString("R")}; path=/';");
+        }
+
+        public async Task<string> GetCookie(string name)
+        {
+            var cookieValue = await _jsRuntime.InvokeAsync<string>("eval", $"(function() {{ var name = '{name}='; var decodedCookie = decodeURIComponent(document.cookie); var ca = decodedCookie.split(';'); for (var i = 0; i < ca.length; i++) {{ var c = ca[i]; while (c.charAt(0) == ' ') c = c.substring(1); if (c.indexOf(name) == 0) return c.substring(name.length, c.length); }} return ''; }})()");
+            return cookieValue;
+        }
     }
 }

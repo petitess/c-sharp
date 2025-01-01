@@ -15,14 +15,12 @@
 
 @code {
     string? status = null;
-    long? percent = null;
 
     private IBrowserFile? selectedFile;
 
     private void HandleFileSelected(InputFileChangeEventArgs e)
     {
         selectedFile = e.GetMultipleFiles(1).FirstOrDefault();
-        percent = selectedFile?.Size;
     }
 
     private async Task UploadFile()

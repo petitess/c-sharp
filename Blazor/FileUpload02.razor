@@ -1,0 +1,58 @@
+@page "/"
+
+@using Azure.Storage.Blobs;
+@using Azure.Identity;
+
+<h3>Upload Multiple Files</h3>
+
+<InputFile OnChange="HandleFilesSelected" multiple />
+<button @onclick="UploadFiles" disabled="@(!selectedFiles.Any())">Upload Files</button>
+<br />
+@if (status != null)
+{
+    @status
+}
+
+@code {
+    string? status = null;
+
+    private List<IBrowserFile> selectedFiles = new List<IBrowserFile>();
+
+    private void HandleFilesSelected(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles().ToList();
+    }
+
+    private async Task UploadFiles()
+    {
+        if (selectedFiles.Any())
+        {
+            foreach (var file in selectedFiles)
+            {
+                using var stream = file.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024); // 5 MB limit
+                await UploadFileAsync(stream, file.Name, "tfstate-databricks");
+                Console.WriteLine($"{file.Name} uploaded successfully!");
+            }
+        }
+    }
+
+    public async Task UploadFileAsync(Stream fileStream, string fileName, string containerName)
+    {
+        try
+        {
+            status = "working...";
+            BlobServiceClient blobServiceClient = new(
+            new Uri($"https://stabcdefault01.blob.core.windows.net"),
+            new DefaultAzureCredential());
+            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+            await containerClient.CreateIfNotExistsAsync();
+            var blobClient = containerClient.GetBlobClient(fileName);
+            var response = await blobClient.UploadAsync(fileStream, true);
+            status = response.GetRawResponse().ReasonPhrase;
+        }
+        catch (Exception exception)
+        {
+            status = exception.Message;
+        }
+    }
+}

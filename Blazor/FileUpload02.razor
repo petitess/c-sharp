@@ -2,25 +2,148 @@
 
 @using Azure.Storage.Blobs;
 @using Azure.Identity;
+@using System.Text
+@inject NavigationManager _navManager
 
 <h3>Upload Multiple Files</h3>
 
 <InputFile OnChange="HandleFilesSelected" multiple />
 <button @onclick="UploadFiles" disabled="@(!selectedFiles.Any())">Upload Files</button>
+<button @onclick=@(() =>DeleteBlob(selectedBlobs)) disabled="@(!selectedBlobs.Any() )">Delete</button>
 <br />
 @if (status != null)
 {
     @status
 }
+<br />
+<h4>Container: @containerName</h4>
+
+<table class="table">
+    <thead>
+        <tr class="text-common">
+            <th></th>
+            <th>Name</th>
+            <th>Modified</th>
+            <th>Access tier</th>
+            <th>Blob type</th>
+            <th>Size</th>
+            <th>Lease state</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (blobs != null)
+        {
+            @foreach (MyBlobItem c in blobs)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" @onclick=@(() => AddRemoveCheckedBlobs(@c.Name)) @bind="@c.isChecked" />
+                    </td>
+                    <td @onclick=@(() => ShowEditModal(@c.Name))><button class="name"> @c.Name</button></td>
+                    <td>@c.LastModified</td>
+                    <td>@c.AccessTier</td>
+                    <td>@c.BlobType</td>
+                    <td>@c.ContentLength</td>
+                    <td>@c.LeaseState</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@if (Edit && blobSize < 2000000 && !blob.EndsWith("png") && !blob.EndsWith("jpg"))
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog" role="document">
+            <EditForm Model="@blob" class="modal-content">
+                <div class="edit-win"><b style="font-size:30px;">Edit File</b></div>
+                <div class="edit-win"><b style="font-size:20px;">@blob</b></div>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <InputTextArea class="input" @bind-Value="content"></InputTextArea>
+                <div class="edit-win">
+                    <button type="submit" class="btn btn-danger" @onclick="@(() => UpdateBlobContent(blob))" @onmousedown="@(() => HideSaveText())">Save</button>
+                    <button type="button" class="btn btn-secondary" @onclick="HideEditModal">Close</button>
+                    <div style="word-wrap: break-word; margin-top:10px; white-space: pre-line"> <p>@statusSave</p> </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<style>
+    button.name {
+    border-style:hidden;
+    background: none
+    }
+
+    button.name:hover {
+    background-color:antiquewhite
+    }
+
+    div.modal {
+    background-color: rgba(10,10,10,0.7);
+    padding-right: 300px
+    }
+
+    .modal-content {
+    width: 800px;
+    max-height: 1000px
+    }
+
+    div.edit-win {
+    margin: 15px
+    }
+
+    .input {
+    margin:10px;
+    height: 500px
+    }
+
+</style>
 
 @code {
-    string? status = null;
 
     private List<IBrowserFile> selectedFiles = new List<IBrowserFile>();
+    private List<string> selectedBlobs = new List<string>();
+    private List<MyBlobItem>? blobs;
+    private string? containerName = "tfstate-databricks";
+    private string? status = null;
+    private string? statusSave = null;
+    private string? content = null;
+    private string? blob;
+    private bool localRun = true;
+    private bool Edit = false;
+    private long blobSize = 0;
+
+    public UploadMultiple()
+    {
+        dynamic getBlobs = ListBlobs();
+        blobs = getBlobs;
+    }
 
     private void HandleFilesSelected(InputFileChangeEventArgs e)
     {
         selectedFiles = e.GetMultipleFiles().ToList();
+    }
+
+    private void ShowEditModal(string blobName)
+    {
+        Edit = true;
+        blob = blobName;
+        GetBlobContent(blobName);
+    }
+
+    private void HideEditModal()
+    {
+        Edit = false;
+        dynamic getBlobs = ListBlobs();
+        blobs = getBlobs;
+    }
+
+    private void HideSaveText()
+    {
+        statusSave = null;
     }
 
     private async Task UploadFiles()
@@ -29,8 +152,8 @@
         {
             foreach (var file in selectedFiles)
             {
-                using var stream = file.OpenReadStream(maxAllowedSize: 5 * 1024 * 1024); // 5 MB limit
-                await UploadFileAsync(stream, file.Name, "tfstate-databricks");
+                using var stream = file.OpenReadStream(maxAllowedSize: 50 * 1024 * 1024); // 50 MB limit
+                await UploadFileAsync(stream, file.Name, containerName);
                 Console.WriteLine($"{file.Name} uploaded successfully!");
             }
         }
@@ -43,16 +166,126 @@
             status = "working...";
             BlobServiceClient blobServiceClient = new(
             new Uri($"https://stabcdefault01.blob.core.windows.net"),
-            new DefaultAzureCredential());
+            localRun ? new VisualStudioCredential() : new DefaultAzureCredential());
             var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
             await containerClient.CreateIfNotExistsAsync();
             var blobClient = containerClient.GetBlobClient(fileName);
             var response = await blobClient.UploadAsync(fileStream, true);
             status = response.GetRawResponse().ReasonPhrase;
+            dynamic getBlobs = ListBlobs();
+            blobs = getBlobs;
+            selectedFiles = new List<IBrowserFile>();
         }
         catch (Exception exception)
         {
             status = exception.Message;
         }
     }
+
+    public List<MyBlobItem> ListBlobs()
+    {
+        try
+        {
+            BlobServiceClient blobServiceClient = new(
+            new Uri($"https://stabcdefault01.blob.core.windows.net"),
+            localRun ? new VisualStudioCredential() : new DefaultAzureCredential());
+            var containerClient =  blobServiceClient.GetBlobContainerClient(containerName);
+            var blobs = containerClient.GetBlobs();
+
+            List<MyBlobItem>? blobList = new List<MyBlobItem>();
+
+            foreach (Azure.Storage.Blobs.Models.BlobItem c in blobs)
+            {
+                blobList.Add(new MyBlobItem
+                {
+                    Name = c.Name,
+                    isChecked = false,
+
+                        LastModified = c.Properties.LastModified,
+                        AccessTier = c.Properties.AccessTier.ToString(),
+                        BlobType = c.Properties.BlobType.ToString(),
+                        ContentLength = c.Properties.ContentLength,
+                        LeaseState = c.Properties.LeaseState.ToString()
+                });
+            }
+            return blobList;
+        }
+        catch (Exception exception)
+        {
+            status = exception.Message;
+            return null;
+        }
+    }
+
+    public void AddRemoveCheckedBlobs(string blobName)
+    {
+        if (selectedBlobs.Contains(blobName))
+        {
+            selectedBlobs?.Remove(blobName);
+            if (selectedBlobs?.Count() != 0) { status = ("Selected blobs " + selectedBlobs?.Count().ToString()); } else { status = null; };
+        }
+        else
+        {
+            selectedBlobs?.Add(blobName);
+            if (selectedBlobs?.Count() != 0) { status = ("Selected blobs " + selectedBlobs?.Count().ToString()); } else { status = null; };
+        }
+    }
+
+    public void GetBlobContent(string blobName)
+    {
+        BlobServiceClient blobServiceClient = new(
+        new Uri($"https://stabcdefault01.blob.core.windows.net"),
+        localRun ? new VisualStudioCredential() : new DefaultAzureCredential());
+        var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+        var blobContent = containerClient.GetBlobClient(blobName);
+        blobSize = blobContent.GetProperties().Value.ContentLength;
+        content = Encoding.UTF8.GetString(blobContent.DownloadContent().Value.Content);
+    }
+
+    public void UpdateBlobContent(string blobName)
+    {
+        BlobServiceClient blobServiceClient = new(
+        new Uri($"https://stabcdefault01.blob.core.windows.net"),
+        localRun ? new VisualStudioCredential() : new DefaultAzureCredential());
+        var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+        var blobContent = containerClient.GetBlobClient(blobName);
+        byte[] inputData = Encoding.UTF8.GetBytes(content);
+        System.IO.Stream stream = new MemoryStream(inputData);
+        var saved = blobContent.Upload(stream, overwrite: true) ;
+        statusSave = saved.GetRawResponse().ReasonPhrase;
+        }
+
+    public void DeleteBlob(List<string> blobNames)
+    {
+        try
+        {
+            BlobServiceClient blobServiceClient = new(
+            new Uri($"https://stabcdefault01.blob.core.windows.net"),
+            localRun ? new VisualStudioCredential() : new DefaultAzureCredential());
+            var containerClient = blobServiceClient.GetBlobContainerClient(containerName);
+
+            foreach (string d in blobNames)
+            {
+                var blobs = containerClient.DeleteBlob(d);
+            }
+            dynamic getBlobs = ListBlobs();
+            blobs = getBlobs;
+            selectedBlobs = new List<string>();
+            status = "Files deleted";
+        }
+        catch (Exception exception)
+        {
+            status = exception.Message;
+        }
+    }
+
+    public class MyBlobItem {
+        public string? Name { get; set; }
+        public bool isChecked { get; set; }
+        public DateTimeOffset? LastModified { get; set; }
+        public string? AccessTier { get; set; }
+        public string? BlobType { get; set; }
+        public long? ContentLength { get; set; }
+        public string? LeaseState { get; set; }
+    };
 }

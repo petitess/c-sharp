@@ -1,23 +1,24 @@
 using System.Security.Cryptography;
 using System.Text;
+using System;
 using System.Linq;
 
-static Guid CreateGuidV3(string input)
+public static class GuidX
 {
-    byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-    byte[] namespaceBytes = Guid.Empty.ToByteArray();
-
-    using (var md5 = MD5.Create())
+    public static Guid CreateGuidV3(string input)
     {
-        byte[] hash = md5.ComputeHash(namespaceBytes.Concat(inputBytes).ToArray());
+        byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+        byte[] namespaceBytes = Guid.Empty.ToByteArray();
 
-        hash[6] = (byte)((hash[6] & 0x0F) | 0x30);
-        hash[8] = (byte)((hash[8] & 0x3F) | 0x80);
+        using (var md5 = MD5.Create())
+        {
+            byte[] hash = md5.ComputeHash(namespaceBytes.Concat(inputBytes).ToArray());
 
-        return new Guid(hash.Take(16).ToArray());
+            hash[6] = (byte)((hash[6] & 0x0F) | 0x30);
+            hash[8] = (byte)((hash[8] & 0x3F) | 0x80);
+
+            return new Guid(hash.Take(16).ToArray());
+        }
     }
 }
-
-var guid = CreateGuidV3("my_string");
-
-Console.WriteLine(guid);
+//Console.WriteLine(GuidX.CreateGuidV3("123"));
